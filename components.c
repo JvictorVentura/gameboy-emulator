@@ -14,3 +14,13 @@ struct {
 	int16b PC;
 
 } Cpu;
+
+byte RAM[RAM_SIZE];
+
+byte get_A(){
+	return Cpu.AF >> 8;
+}
+
+void set_A( byte value ){
+	Cpu.AF = value << 8;
+}
