@@ -20,14 +20,63 @@ byte RAM[RAM_SIZE];
 
 byte Screen[HEIGHT][WIDTH];
 
+void set_flag(char flag, byte value){
+	switch(flag){
+		case 'Z':
+			if(value == 0)
+				Cpu.AF = Cpu.AF & ~(1<<8);
+			else
+				Cpu.AF = Cpu.AF | (1<<8);
+		break;
+
+		case 'N':
+			if(value == 0)
+				Cpu.AF = Cpu.AF & ~(1<<7);
+			else
+				Cpu.AF = Cpu.AF | (1<<7);
+		break;
+
+
+		case 'H':
+			if(value == 0)
+				Cpu.AF = Cpu.AF & ~(1<<6);
+			else
+				Cpu.AF = Cpu.AF | (1<<6);
+		break;
+
+
+		case 'C':
+			if(value == 0)
+				Cpu.AF = Cpu.AF & ~(1<<5);
+			else
+				Cpu.AF = Cpu.AF | (1<<5);
+		break;
+	}
+}
+
+
+void clean_higher_bits(int16b *Register){
+	*Register = *Register & 0x00FF;
+}
+
+void clean_lower_bits(int16b *Register){
+	*Register = *Register & 0xFF00;
+}
+
+
+
 byte get_higher_bits(int16b *Register){
 	return *Register >> 8;
 }
 
 void set_higher_bits( byte value, int16b *Register ){
 	//clean the register
+	//clean_higher_bits(Register);
 	*Register += value << 8;
 }
+
+
+
 
 byte get_lower_bits(int16b *Register){
 	return *Register << 8;
@@ -35,13 +84,40 @@ byte get_lower_bits(int16b *Register){
 
 void set_lower_bits( byte value, int16b *Register ){
 	//clean the register
+	//clean_lower_bits(Register);
 	*Register += value >> 8;
 }
+
+
+
 
 void set_16bit_register( int16b  value, int16b *Register ){
 	*Register = value ;
 }
 
+
+
 void increment_16bit_register( int16b *Register ){
-	(*Register)++;	
+	(*Register)++;
 }
+
+void increment_8bit_register( int16b *Register ){
+	int16b temp = *Register;
+	(*Register)++;
+
+	if(*Register == 0)
+		//flag Z = 1
+		set_flag('Z', 1);
+	else
+		//flag Z = 0
+		set_flag('Z', 0);
+
+	//set flag N = 0
+	set_flag('N', 0);
+
+	if( (temp & 0x000F) == 0x000F)
+		//set flag H
+		set_flag('H', 1);
+}
+
+

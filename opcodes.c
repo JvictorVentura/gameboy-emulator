@@ -14,4 +14,6 @@ void INC_0x03(){
 	increment_16bit_register(&Cpu.BC);
 }
 
-
+void INC_0x04(){
+	increment_8bit_register(&Cpu.BC);
+}
