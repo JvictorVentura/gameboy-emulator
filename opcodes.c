@@ -15,5 +15,5 @@ void INC_0x03(){
 }
 
 void INC_0x04(){
-	increment_8bit_register(&Cpu.BC);
+	increment_8bit_register(&Cpu.BC, 'H');
 }

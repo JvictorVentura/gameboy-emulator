@@ -71,7 +71,7 @@ byte get_higher_bits(int16b *Register){
 
 void set_higher_bits( byte value, int16b *Register ){
 	//clean the register
-	//clean_higher_bits(Register);
+	clean_higher_bits(Register);
 	*Register += value << 8;
 }
 
@@ -79,12 +79,12 @@ void set_higher_bits( byte value, int16b *Register ){
 
 
 byte get_lower_bits(int16b *Register){
-	return *Register << 8;
+	return *Register & 0x00FF;
 }
 
 void set_lower_bits( byte value, int16b *Register ){
 	//clean the register
-	//clean_lower_bits(Register);
+	clean_lower_bits(Register);
 	*Register += value >> 8;
 }
 
@@ -101,23 +101,42 @@ void increment_16bit_register( int16b *Register ){
 	(*Register)++;
 }
 
-void increment_8bit_register( int16b *Register ){
-	int16b temp = *Register;
-	(*Register)++;
+void increment_8bit_register( int16b *Register, char higher_or_lower){
+	
+	if(higher_or_lower == 'H'){
+		byte temp = *Register >> 8;
+		if( (temp & 0x0F) == 0x0F)
+			set_flag('H', 1);
+		++temp;
 
-	if(*Register == 0)
-		//flag Z = 1
-		set_flag('Z', 1);
-	else
-		//flag Z = 0
-		set_flag('Z', 0);
+		if(temp == 0)
+			//flag Z = 1
+			set_flag('Z', 1);
+		else
+			//flag Z = 0
+			set_flag('Z', 0);
 
+		set_higher_bits(temp, Register);
+	}
+
+	if(higher_or_lower == 'L'){
+		byte temp = *Register & 0x00FF;
+		if( (temp & 0x0F) == 0x0F)
+			set_flag('H', 1);
+		++temp;
+
+		if(temp == 0)
+			//flag Z = 1
+			set_flag('Z', 1);
+		else
+			//flag Z = 0
+			set_flag('Z', 0);
+
+		set_lower_bits(temp, Register);
+	}
 	//set flag N = 0
 	set_flag('N', 0);
-
-	if( (temp & 0x000F) == 0x000F)
-		//set flag H
-		set_flag('H', 1);
+	
 }
 
 
