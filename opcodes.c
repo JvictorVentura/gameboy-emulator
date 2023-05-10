@@ -14,6 +14,30 @@ void INC_0x03(){
 	increment_16bit_register(&Cpu.BC);
 }
 
-void INC_0x04(){
+void INC_B(){//0x04
 	increment_8bit_register(&Cpu.BC, 'H');
+}
+
+void INC_D(){//0x14
+	increment_8bit_register(&Cpu.DE, 'H');
+}
+
+void INC_H(){//0x24
+	increment_8bit_register(&Cpu.HL, 'H');
+}
+
+void INC_C(){//0x0C
+	increment_8bit_register(&Cpu.BC, 'L');
+}
+
+void INC_E(){//0x1C
+	increment_8bit_register(&Cpu.DE, 'L');
+}
+
+void INC_L(){//0x2C
+	increment_8bit_register(&Cpu.HL, 'L');
+}
+
+void INC_A(){//0x3C
+	increment_8bit_register(&Cpu.AF, 'H');
 }
