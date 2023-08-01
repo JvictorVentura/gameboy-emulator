@@ -1,111 +1,45 @@
 #include "components.c"
+#include "util.h"
+// RN. R = Register.  N = size in bits (16/8).
+// UN. U = value (unsinged integer).  N = size in bits (16/8).
 
-void LD_0x01( int16b value){
-	//Cpu.BC = value;	
-	set_16bit_register( value, &Cpu.BC );
+void NOP(){}
+
+void load_R16_U16(){
+	
+	int16b value = (fetch() << 8) + fetch();
+
+	int16b *register_adress[] = {
+		&Cpu.BC,
+		&Cpu.DE,
+		&Cpu.HL,
+		&Cpu.stack_pointer,
+		&Cpu.AF
+	};
+
+	byte index = opcode >> 4;
+
+	*register_adress[index] = value;
 }
 
-void LD_0x02(){
-	RAM[Cpu.BC] = get_higher_bits(&Cpu.AF);	
-}
+void STOP(){
 
-void increment_XX_register(char *register_name){
-	switch(register_name){
-		case "BC":
-			increment_16bit_register(&Cpu.BC);
-		break;
+	byte stop_loop = FALSE;
 
-		case "DE":
-			increment_16bit_register(&Cpu.DE);
-		break;
-
-		case "HL":
-			increment_16bit_register(&Cpu.HL);
-		break;
-
-		case "SP":
-			increment_16bit_register(&Cpu.stack_pointer);
-		break;
+	while( stop_loop == FALSE){
+		//check for any button press
 	}
+
+	fetch();	//for some reason it seams that the STOP instruction skips 1 byte
 }
 
-void increment_X_register(char *register_name){
-	switch(register_name){
-		case 'B':
-			increment_8bit_register(&Cpu.BC, 'H');
-		break;
+void jump_if_not_flag_U8(){
+	byte adress = fetch();
 
-		case 'C':
-			increment_8bit_register(&Cpu.BC, 'L');
-		break;
-
-		case 'D':
-			increment_8bit_register(&Cpu.DE, 'H');
-		break;
-
-		case 'E':
-			increment_8bit_register(&Cpu.DE, 'L');
-		break;
-
-		case 'H':
-			increment_8bit_register(&Cpu.HL, 'H');
-		break;
-
-		case 'L':
-			increment_8bit_register(&Cpu.HL, 'L');
-		break;
-
-		case 'A':
-			increment_8bit_register(&Cpu.AF, 'H');
-		break;
+	if(opcode == 0x20){
+		
 	}
+
 }
 
-/*
-void INC_B(){//0x04
-	increment_8bit_register(&Cpu.BC, 'H');
-}
 
-void INC_D(){//0x14
-	increment_8bit_register(&Cpu.DE, 'H');
-}
-
-void INC_H(){//0x24
-	increment_8bit_register(&Cpu.HL, 'H');
-}
-
-void INC_C(){//0x0C
-	increment_8bit_register(&Cpu.BC, 'L');
-}
-
-void INC_E(){//0x1C
-	increment_8bit_register(&Cpu.DE, 'L');
-}
-
-void INC_L(){//0x2C
-	increment_8bit_register(&Cpu.HL, 'L');
-}
-
-void INC_A(){//0x3C
-	increment_8bit_register(&Cpu.AF, 'H');
-}
-*/
-
-
-
-
-/*void INC_BC(){//0x03
-	increment_16bit_register(&Cpu.BC);
-}
-
-void INC_DE(){//0x13
-	increment_16bit_register(&Cpu.DE);
-}
-
-void INC_HL(){//0x23
-	increment_16bit_register(&Cpu.HL);
-}
-
-void INC_SP(){//0x33
-	increment_16bit_register(&Cpu.stack_pointer);
-}*/
