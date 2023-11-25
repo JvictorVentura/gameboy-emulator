@@ -5,7 +5,7 @@
 
 void NOP(){}
 
-void STOP(){
+void STOP(GameBoy *gb){
 
 	uint8_t stop_loop = FALSE;
 
@@ -13,6 +13,6 @@ void STOP(){
 		//check for any button press
 	}
 
-	fetch();	//for some reason it seams that the STOP instruction skips 1 uint8_t
+	fetch(gb);	//for some reason it seams that the STOP instruction skips 1 byte 
 }
 

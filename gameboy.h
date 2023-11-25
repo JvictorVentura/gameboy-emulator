@@ -16,11 +16,13 @@ typedef struct{
 	uint16_t stack_pointer;
 	uint16_t PC;
 
-} CPU;
+	uint8_t ram[RAM_SIZE];
+	uint8_t screen[SCREEN_HEIGHT][SCREEN_WIDTH];
+} GameBoy;
 
-extern uint8_t ram[RAM_SIZE];
-extern uint8_t screen[SCREEN_HEIGHT][SCREEN_WIDTH]; 
-//extern enum {HIGHER, LOWER};
-//extern enum {TRUE, FALSE};
+//uint8_t ram[RAM_SIZE];
+//uint8_t screen[SCREEN_HEIGHT][SCREEN_WIDTH]; 
+//enum {HIGHER, LOWER};
+enum {TRUE, FALSE};
 
-uint8_t fetch();
+uint8_t fetch(GameBoy *gb);
