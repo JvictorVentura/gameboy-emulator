@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "gameboy.h"
 #include <stdlib.h>
+#include <string.h>
 
 //int load_rom(FILE *rom);
 uint8_t *rom;
@@ -28,10 +29,9 @@ int main(int argc, char *argv[]){
 
 	if(argc > 1){
 		FILE *rom_file = fopen(argv[1], "r");
-		if(rom == NULL){
+		if(rom_file == NULL){
 			printf("Error opening rom\n");
 		}else{
-			
 			uint8_t error = load_rom(rom_file, rom);	
 			if(error == 1){
 				printf("Error loading rom\n");
