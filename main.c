@@ -58,7 +58,16 @@ int main(int argc, char *argv[]){
 			}
 			initialize_gameboy(&gb);
 			load_rom_memory_address(&gb);
+
+			//printf(" result = %.4x\n", join_two_bytes(0xAB, 0xCD));
+
 			while(gb.stop_execution == FALSE){
+				//printf("PC = %.4x\n", gb.PC);
+				//printf("OPCODE = %.4x\n", gb.opcode);
+
+				//printf("C = %.2x\n", gb.C);
+				//printf("H = %.2x\n", gb.H);
+				gb.opcode = fetch(&gb);
 				execute(&gb);
 			}
 

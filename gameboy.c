@@ -12,23 +12,31 @@ void not_impl(GameBoy *gb){
 	gb->stop_execution = TRUE;
 }
 
-void print_opcode(uint8_t opcode){
-/*char *opcode_name[] = {"NOP","LD BC,n16","LD [BC],A","INC BC","INC B","DEC B","LD B,n8","RLCA","LD [a16],SP","ADD HL,BC","LD A,[BC]","DEC BC","INC C","DEC C","LD C,n8","RRCA",
-												 "STOP n8","LD DE,n16","LD [DE],A","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP",
-												 "NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP",
-												 "NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP",
-												 "NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP",
-												 "NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP",
-												 "NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP",
-												 "NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP",
-												 "NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP",
-												 "NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP",
-												 "NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP",
-												 "NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP",
-												 "NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP",
-												 "NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP",
-												 "NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP","NOP"};i*/ //		i was doing by hand but i found a json and extracted from there, if it works i will delete this
+void jump(GameBoy *gb, uint16_t address){
+	gb->PC = address;
+}
 
+uint16_t join_two_bytes(uint8_t byte_A, uint8_t byte_B){
+	return (byte_A << 8) + byte_B;
+}
+
+void reg_to_reg_8b(uint8_t *reg_A, uint8_t *reg_B){
+	*reg_A = *reg_B;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+void print_opcode(uint8_t opcode){
 	//	for debug purposes
 	char *instruction_name[] = {"NOP", "LD BC,n16", "LD BC,A", "INC BC", "INC B", "DEC B", "LD B,n8", "RLCA", "LD a16,SP", "ADD HL,BC", "LD A,BC", "DEC BC", "INC C", "DEC C", "LD C,n8", "RRCA", 
 											 "STOP n8", "LD DE,n16", "LD DE,A", "INC DE", "INC D", "DEC D", "LD D,n8", "RLA", "JR e8", "ADD HL,DE", "LD A,DE", "DEC DE", "INC E", "DEC E", "LD E,n8", "RRA", 
@@ -52,21 +60,24 @@ void print_opcode(uint8_t opcode){
 }
 
 void execute(GameBoy *gb){
-	void (*instruction[]) (GameBoy *) = { not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
-																			not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
-																			not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
-																			not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
-																			not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
-																			not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
-																			not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
-																			not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
-																			not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
-																			not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
-																			not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
-																			not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
-																			not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
-																			not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
-																			not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl};
+	void (*instruction[]) (GameBoy *) =
+{ NOP, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
+not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
+not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
+not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
+not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
+not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
+not_impl, LD_HC, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
+not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
+not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
+not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
+not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, XOR_A, 
+not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
+not_impl, not_impl, not_impl, JP_a16, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
+not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
+not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
+not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl };
+
 
 	instruction[gb->opcode](gb);
 

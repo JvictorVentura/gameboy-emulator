@@ -40,3 +40,12 @@ void print_opcode(uint8_t opcode);
 void decode(GameBoy *gb, uint8_t opcode);
 void execute(GameBoy *gb);
 void not_impl(GameBoy *gb);
+void jump(GameBoy *gb, uint16_t address);
+uint16_t join_two_bytes(uint8_t byte_A, uint8_t byte_B);// join 2 bytes in one variable of 16bit and return, example: receives 0xc3 and 0x02 returns 0xc302
+void reg_to_reg_8b(uint8_t *reg_A, uint8_t *reg_B);//	register passed to reg_A receives the contents of the register passed to reg_B
+
+//	Instructions
+void NOP(GameBoy *gb);		//0x00
+void JP_a16(GameBoy *gb);	//0xc3
+void LD_HC(GameBoy *gb);	//0x61
+void XOR_A(GameBoy *gb);	//0xAF
