@@ -24,12 +24,14 @@ void reg_to_reg_8b(uint8_t *reg_A, uint8_t *reg_B){
 	*reg_A = *reg_B;
 }
 
+void load_16b_register(uint8_t *high_reg, uint8_t *low_reg, uint16_t value){
+	*high_reg = (value >> 8);
+	*low_reg = value & 0x00FF;
+}
 
-
-
-
-
-
+void load_8b_register(uint8_t *reg, uint8_t value){
+	*reg = value;
+}
 
 
 
@@ -61,10 +63,10 @@ void print_opcode(uint8_t opcode){
 
 void execute(GameBoy *gb){
 	void (*instruction[]) (GameBoy *) =
-{ NOP, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
+{ NOP, not_impl, not_impl, not_impl, not_impl, not_impl, LD_B_n8, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, LD_C_n8, not_impl, 
 not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
-not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
-not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
+not_impl, LD_HL_n16, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
+not_impl, not_impl, LD_address_HLminus_A, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
 not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
 not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
 not_impl, LD_HC, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 

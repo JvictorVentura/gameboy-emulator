@@ -36,3 +36,44 @@ void XOR_A(GameBoy *gb){
 	gb->A = gb->A ^ gb->A;
 
 }
+
+void LD_HL_n16(GameBoy *gb){	
+	//get the value
+	uint8_t byte_low = fetch(gb);
+	uint8_t byte_high = fetch(gb);
+	uint16_t value = join_two_bytes(byte_high, byte_low);
+
+	//assign value H and L
+	
+	load_16b_register( &(gb->H), &(gb->L), value);
+}
+
+void LD_C_n8(GameBoy *gb){
+	uint8_t value = fetch(gb);
+	load_8b_register( &(gb->C), value);
+}
+
+void LD_B_n8(GameBoy *gb){
+	uint8_t value = fetch(gb);
+	load_8b_register( &(gb->B), value);
+}
+
+
+void LD_address_HLminus_A(GameBoy *gb){	
+	uint16_t address = join_two_bytes(gb->H, gb->L);
+	gb->memory_address[address] = gb->A;
+	address--;
+	load_16b_register( &(gb->H), &(gb->L), address);
+}
+
+/*	//get the address
+	uint16_t address;
+	address = fetch(gb);
+	address += (fetch(gb) << 8);
+
+	//get the value
+	uint16_t value;
+	value = gb->memory_address[address];	
+	value += (gb->memory_address[address + 1] << 8);	
+
+*/
