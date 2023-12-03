@@ -66,6 +66,26 @@ void LD_address_HLminus_A(GameBoy *gb){
 	load_16b_register( &(gb->H), &(gb->L), address);
 }
 
+void DEC_B(GameBoy *gb){	
+	uint8_t before_decrement = gb->B;
+	gb->B--;
+	if(gb->B == 0){
+		set_flag(&(gb->F), ZERO_FLAG, ON);
+	}else{
+		set_flag(&(gb->F), ZERO_FLAG, OFF);
+	}
+
+	set_flag(&(gb->F), SUBTRACTION_FLAG, ON);
+
+	if (check_lower_half_carry(before_decrement, 1) == TRUE){		//	borrow
+		set_flag(&(gb->F), HALF_CARRY_FLAG, ON);
+	}else{
+		set_flag(&(gb->F), HALF_CARRY_FLAG, OFF);		// no borrow
+	}
+
+
+}
+
 /*	//get the address
 	uint16_t address;
 	address = fetch(gb);

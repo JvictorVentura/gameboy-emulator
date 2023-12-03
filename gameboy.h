@@ -34,6 +34,8 @@ typedef struct{
 //uint8_t screen[SCREEN_HEIGHT][SCREEN_WIDTH]; 
 //enum {HIGHER, LOWER};
 enum {TRUE, FALSE};
+enum {ON, OFF};
+enum {ZERO_FLAG = 2, SUBTRACTION_FLAG = 4, CARRY_FLAG = 8, HALF_CARRY_FLAG = 16};
 
 uint8_t fetch(GameBoy *gb);
 void print_opcode(uint8_t opcode); 
@@ -45,6 +47,9 @@ uint16_t join_two_bytes(uint8_t byte_A, uint8_t byte_B);// join 2 bytes in one v
 void reg_to_reg_8b(uint8_t *reg_A, uint8_t *reg_B);//	register passed to reg_A receives the contents of the register passed to reg_B
 void load_16b_register(uint8_t *high_reg, uint8_t *low_reg, uint16_t value);
 void load_8b_register(uint8_t *reg, uint8_t value);
+void set_flag(uint8_t *flag_register, uint8_t flag, uint8_t set_flag_to);
+uint8_t check_upper_half_carry(uint8_t value_a, uint8_t value_b);
+uint8_t check_lower_half_carry(uint8_t value_a, uint8_t value_b);
 
 //	Instructions
 void NOP(GameBoy *gb);		//0x00
@@ -55,3 +60,4 @@ void LD_HL_n16(GameBoy *gb);	//0x21
 void LD_C_n8(GameBoy *gb);	//0x0e
 void LD_B_n8(GameBoy *gb);	//0x06
 void LD_address_HLminus_A(GameBoy *gb);	//0x32
+void DEC_B(GameBoy *gb);		//0x05													

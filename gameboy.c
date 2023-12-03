@@ -33,9 +33,37 @@ void load_8b_register(uint8_t *reg, uint8_t value){
 	*reg = value;
 }
 
+void set_flag(uint8_t *flag_register, uint8_t flag, uint8_t set_flag_to){
+	if (set_flag_to == ON){
+		*flag_register = *flag_register | flag;
+	}else{
+		*flag_register = *flag_register & (~flag);
+	}
 
+}
 
+uint8_t check_upper_half_carry(uint8_t value_a, uint8_t value_b){
+	value_a = value_a & 0xF;	//  get 4 lower bits
+	value_b = value_b & 0xF;	//  get 4 lower bits
+	uint8_t result = value_a + value_b;
+	if (result >= 0x10){
+		return TRUE;
+	}else{
+		return FALSE;
+	}
+}
 
+uint8_t check_lower_half_carry(uint8_t value_a, uint8_t value_b){
+	value_a = value_a & 0xF;	//  get 4 lower bits
+	value_b = value_b & 0xF;	//  get 4 lower bits
+	uint8_t result = value_a - value_b;
+	if (result > 0){		//	borrow
+		return TRUE;
+	}else{
+		return FALSE;
+	}
+
+}
 
 
 void print_opcode(uint8_t opcode){
@@ -63,7 +91,7 @@ void print_opcode(uint8_t opcode){
 
 void execute(GameBoy *gb){
 	void (*instruction[]) (GameBoy *) =
-{ NOP, not_impl, not_impl, not_impl, not_impl, not_impl, LD_B_n8, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, LD_C_n8, not_impl, 
+{ NOP, not_impl, not_impl, not_impl, not_impl, DEC_B, LD_B_n8, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, LD_C_n8, not_impl, 
 not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
 not_impl, LD_HL_n16, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
 not_impl, not_impl, LD_address_HLminus_A, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
