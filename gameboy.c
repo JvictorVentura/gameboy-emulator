@@ -53,11 +53,11 @@ uint8_t check_upper_half_carry(uint8_t value_a, uint8_t value_b){
 	}
 }
 
-uint8_t check_lower_half_carry(uint8_t value_a, uint8_t value_b){
+uint8_t check_lower_half_carry(int8_t value_a, int8_t value_b){		// WRONG FIX LATER
 	value_a = value_a & 0xF;	//  get 4 lower bits
 	value_b = value_b & 0xF;	//  get 4 lower bits
-	uint8_t result = value_a - value_b;
-	if (result > 0){		//	borrow
+	int8_t result = value_a - value_b;
+	if (result < 0){		//	borrow
 		return TRUE;
 	}else{
 		return FALSE;
