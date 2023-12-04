@@ -50,6 +50,7 @@ void load_8b_register(uint8_t *reg, uint8_t value);
 void set_flag(uint8_t *flag_register, uint8_t flag, uint8_t set_flag_to);
 uint8_t check_upper_half_carry(uint8_t value_a, uint8_t value_b);
 uint8_t check_lower_half_carry(int8_t value_a, int8_t value_b);
+uint8_t check_flag(uint8_t *flag_register, uint8_t flag);
 
 //	Instructions
 void NOP(GameBoy *gb);		//0x00
@@ -60,4 +61,5 @@ void LD_HL_n16(GameBoy *gb);	//0x21
 void LD_C_n8(GameBoy *gb);	//0x0e
 void LD_B_n8(GameBoy *gb);	//0x06
 void LD_address_HLminus_A(GameBoy *gb);	//0x32
-void DEC_B(GameBoy *gb);		//0x05													
+void DEC_B(GameBoy *gb);		//0x05
+void JR_NZ_e8(GameBoy *gb);		//0x20						

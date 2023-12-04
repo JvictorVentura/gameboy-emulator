@@ -86,6 +86,15 @@ void DEC_B(GameBoy *gb){
 
 }
 
+void JR_NZ_e8(GameBoy *gb){
+	int8_t jump_value = fetch(gb);
+
+	if (check_flag( &(gb->F), ZERO_FLAG) == OFF){
+		gb->PC += jump_value;
+	}
+
+}
+
 /*	//get the address
 	uint16_t address;
 	address = fetch(gb);
