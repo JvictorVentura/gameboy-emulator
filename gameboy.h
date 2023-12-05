@@ -63,3 +63,5 @@ void LD_B_n8(GameBoy *gb);	//0x06
 void LD_address_HLminus_A(GameBoy *gb);	//0x32
 void DEC_B(GameBoy *gb);		//0x05
 void JR_NZ_e8(GameBoy *gb);		//0x20						
+void DEC_C(GameBoy *gb);		//0x0d
+void LD_A_n8(GameBoy *gb);	//0x3e

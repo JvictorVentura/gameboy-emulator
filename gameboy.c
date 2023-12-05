@@ -97,10 +97,10 @@ void print_opcode(uint8_t opcode){
 
 void execute(GameBoy *gb){
 	void (*instruction[]) (GameBoy *) =
-{ NOP, not_impl, not_impl, not_impl, not_impl, DEC_B, LD_B_n8, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, LD_C_n8, not_impl, 
+{ NOP, not_impl, not_impl, not_impl, not_impl, DEC_B, LD_B_n8, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, DEC_C, LD_C_n8, not_impl, 
 not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
 JR_NZ_e8, LD_HL_n16, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
-not_impl, not_impl, LD_address_HLminus_A, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
+not_impl, not_impl, LD_address_HLminus_A, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, LD_A_n8, not_impl, 
 not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
 not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
 not_impl, LD_HC, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
