@@ -28,6 +28,7 @@ typedef struct{
 	uint8_t stop_execution;
 
 	uint32_t frequency;
+	uint8_t interrupt_status;
 } GameBoy;
 
 //uint8_t ram[RAM_SIZE];
@@ -41,6 +42,7 @@ uint8_t fetch(GameBoy *gb);
 void print_opcode(uint8_t opcode); 
 void decode(GameBoy *gb, uint8_t opcode);
 void execute(GameBoy *gb);
+void handle_interrupts(GameBoy *gb);
 void not_impl(GameBoy *gb);
 void jump(GameBoy *gb, uint16_t address);
 uint16_t join_two_bytes(uint8_t byte_A, uint8_t byte_B);// join 2 bytes in one variable of 16bit and return, example: receives 0xc3 and 0x02 returns 0xc302
@@ -57,11 +59,13 @@ void NOP(GameBoy *gb);		//0x00
 void JP_a16(GameBoy *gb);	//0xc3
 void LD_HC(GameBoy *gb);	//0x61
 void XOR_A(GameBoy *gb);	//0xAF
-void LD_HL_n16(GameBoy *gb);	//0x21
+void LD_HL_n16(GameBoy *gb);//0x21
 void LD_C_n8(GameBoy *gb);	//0x0e
 void LD_B_n8(GameBoy *gb);	//0x06
 void LD_address_HLminus_A(GameBoy *gb);	//0x32
 void DEC_B(GameBoy *gb);		//0x05
-void JR_NZ_e8(GameBoy *gb);		//0x20						
+void JR_NZ_e8(GameBoy *gb);	//0x20						
 void DEC_C(GameBoy *gb);		//0x0d
 void LD_A_n8(GameBoy *gb);	//0x3e
+void DI(GameBoy *gb);				//0xf3
+void LDH_a8_A(GameBoy *gb);	//0xe0

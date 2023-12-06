@@ -72,6 +72,10 @@ uint8_t check_flag(uint8_t *flag_register, uint8_t flag){
 		return ON;
 }
 
+
+
+
+
 void print_opcode(uint8_t opcode){
 	//	for debug purposes
 	char *instruction_name[] = {"NOP", "LD BC,n16", "LD BC,A", "INC BC", "INC B", "DEC B", "LD B,n8", "RLCA", "LD a16,SP", "ADD HL,BC", "LD A,BC", "DEC BC", "INC C", "DEC C", "LD C,n8", "RRCA", 
@@ -111,14 +115,17 @@ not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
 not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
 not_impl, not_impl, not_impl, JP_a16, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
 not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
-not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
-not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl };
+LDH_a8_A, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
+not_impl, not_impl, not_impl, DI, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl };
 
 
 	instruction[gb->opcode](gb);
 
 }
 
+void handle_interrupts(GameBoy *gb){
+	// TO DO
+}
 
 /*void decode(GameBoy *gb){
 	

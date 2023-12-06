@@ -120,6 +120,15 @@ void LD_A_n8(GameBoy *gb){
 	load_8b_register( &(gb->A), value);
 }
 
+void DI(GameBoy *gb){
+	gb->interrupt_status = OFF;
+}
+
+
+void LDH_a8_A(GameBoy *gb){
+	uint8_t offset = fetch(gb);
+	gb->memory_address[0xFF00 + offset] = gb->A;
+}
 
 /*	//get the address
 	uint16_t address;
