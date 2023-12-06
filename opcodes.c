@@ -112,6 +112,11 @@ void DEC_C(GameBoy *gb){
 		set_flag(&(gb->F), HALF_CARRY_FLAG, OFF);		// no borrow
 	}
 
+	if (gb->C < 1){
+		set_flag(&(gb->F), CARRY_FLAG, ON);		
+	}else{
+		set_flag(&(gb->F), CARRY_FLAG, OFF);
+	}
 
 }
 
@@ -128,6 +133,40 @@ void DI(GameBoy *gb){
 void LDH_a8_A(GameBoy *gb){
 	uint8_t offset = fetch(gb);
 	gb->memory_address[0xFF00 + offset] = gb->A;
+}
+
+void LDH_A_a8(GameBoy *gb){
+	uint8_t offset = fetch(gb);
+	 gb->A = gb->memory_address[0xFF00 + offset];
+}
+
+void CP_A_n8(GameBoy *gb){	
+	uint8_t value = fetch(gb);
+	uint8_t before_subtraction= gb->A;
+	uint8_t after_subtraction= gb->A - value;
+
+	if(after_subtraction == 0){
+		set_flag(&(gb->F), ZERO_FLAG, ON);
+	}else{
+		set_flag(&(gb->F), ZERO_FLAG, OFF);
+	}
+
+	set_flag(&(gb->F), SUBTRACTION_FLAG, ON);
+
+	if (check_lower_half_carry(before_subtraction, value) == TRUE){		
+		set_flag(&(gb->F), HALF_CARRY_FLAG, ON);
+	}else{
+		set_flag(&(gb->F), HALF_CARRY_FLAG, OFF);		
+	}
+
+	if (gb->A < value){
+		set_flag(&(gb->F), CARRY_FLAG, ON);		
+	}else{
+		set_flag(&(gb->F), CARRY_FLAG, OFF);
+	}
+
+
+
 }
 
 /*	//get the address

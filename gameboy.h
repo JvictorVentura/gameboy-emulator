@@ -58,7 +58,7 @@ uint8_t check_flag(uint8_t *flag_register, uint8_t flag);
 void NOP(GameBoy *gb);		//0x00
 void JP_a16(GameBoy *gb);	//0xc3
 void LD_HC(GameBoy *gb);	//0x61
-void XOR_A(GameBoy *gb);	//0xAF
+void XOR_A(GameBoy *gb);	//0xaf
 void LD_HL_n16(GameBoy *gb);//0x21
 void LD_C_n8(GameBoy *gb);	//0x0e
 void LD_B_n8(GameBoy *gb);	//0x06
@@ -69,3 +69,5 @@ void DEC_C(GameBoy *gb);		//0x0d
 void LD_A_n8(GameBoy *gb);	//0x3e
 void DI(GameBoy *gb);				//0xf3
 void LDH_a8_A(GameBoy *gb);	//0xe0
+void LDH_A_a8(GameBoy *gb);	//0xf0
+void CP_A_n8(GameBoy *gb);	//0xfe

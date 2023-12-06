@@ -116,9 +116,10 @@ not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
 not_impl, not_impl, not_impl, JP_a16, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
 not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
 LDH_a8_A, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
-not_impl, not_impl, not_impl, DI, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl };
+LDH_A_a8, not_impl, not_impl, DI, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl,  CP_A_n8 };
 
 
+	printf("Instruction implemented: %.2x \n", gb->opcode);
 	instruction[gb->opcode](gb);
 
 }
