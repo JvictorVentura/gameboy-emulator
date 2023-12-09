@@ -1,2 +1,2 @@
 make:
-	gcc -Wall -Wextra *.c -o gameboy
+	gcc -Wall -Wextra -lSDL2 *.c -o gameboy

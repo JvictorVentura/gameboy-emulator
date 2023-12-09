@@ -2,7 +2,9 @@
 #include "gameboy.h"
 #include <stdlib.h>
 #include <string.h>
+#include <SDL2/SDL.h>
 
+SDL_Window *window;
 //int load_rom(FILE *rom);
 uint8_t *rom;
 uint16_t PC;
@@ -44,7 +46,20 @@ void initialize_gameboy(GameBoy *gb){
 
 }
 
+void init(){
+	SDL_Init(SDL_INIT_VIDEO);
+  window = SDL_CreateWindow("GameBoy", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_SHOWN);
+}
+
+void cleanup(){
+	SDL_DestroyWindow(window);
+  SDL_Quit();
+}
+
 int main(int argc, char *argv[]){
+
+	init();
+	SDL_Event event;
 
 	if(argc > 1){
 		FILE *rom_file = fopen(argv[1], "r");
@@ -63,6 +78,10 @@ int main(int argc, char *argv[]){
 			//printf(" result = %.4x\n", join_two_bytes(0xAB, 0xCD));
 
 			while(gb.stop_execution == FALSE){
+				SDL_PollEvent(&event); 
+  			if (event.type == SDL_QUIT) {
+  				gb.stop_execution = TRUE;
+  			}			
 				//printf("PC = %.4x\n", gb.PC);
 				//printf("OPCODE = %.4x\n", gb.opcode);
 
