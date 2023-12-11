@@ -169,6 +169,13 @@ void CP_A_n8(GameBoy *gb){
 
 }
 
+void LD_SP_n16(GameBoy *gb){
+	uint8_t lower_byte = fetch(gb);	
+	uint8_t higher_byte = fetch(gb);	
+	uint16_t address = join_two_bytes(higher_byte, lower_byte);
+	gb->stack_pointer = address;
+}
+
 /*	//get the address
 	uint16_t address;
 	address = fetch(gb);
