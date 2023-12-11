@@ -40,10 +40,13 @@ enum {ZERO_FLAG = 2, SUBTRACTION_FLAG = 4, CARRY_FLAG = 8, HALF_CARRY_FLAG = 16}
 
 uint8_t fetch(GameBoy *gb);
 void print_opcode(uint8_t opcode); 
+void prefix_print_opcode(uint8_t opcode);
 void decode(GameBoy *gb, uint8_t opcode);
 void execute(GameBoy *gb);
+void prefixed_instruction(GameBoy *gb);
 void handle_interrupts(GameBoy *gb);
 void not_impl(GameBoy *gb);
+void prefix_not_impl(GameBoy *gb);
 void jump(GameBoy *gb, uint16_t address);
 uint16_t join_two_bytes(uint8_t byte_A, uint8_t byte_B);// join 2 bytes in one variable of 16bit and return, example: receives 0xc3 and 0x02 returns 0xc302
 void reg_to_reg_8b(uint8_t *reg_A, uint8_t *reg_B);//	register passed to reg_A receives the contents of the register passed to reg_B
