@@ -186,6 +186,11 @@ void BIT_7_H(GameBoy *gb){
 	set_flag(&(gb->F), HALF_CARRY_FLAG, ON);
 
 }
+
+void LD_C_plus_offset_A(GameBoy *gb){
+	gb->memory_address[0xFF00 + gb->C] = gb->A;
+}
+
 /*	//get the address
 	uint16_t address;
 	address = fetch(gb);
