@@ -107,7 +107,7 @@ void print_opcode(uint8_t opcode){
 
 void prefix_print_opcode(uint8_t opcode){
 	//	for debug purposes
-	char *instruction_name[] = {"RLC B", "RLC C", "RLC D", "RLC E", "RLC H", "RLC L", "RLC HL", "RLC A", "RRC B", "RRC C", "RRC D", "RRC E", "RRC H", "RRC L", "RRC HL", "RRC A", 
+	char *prefixed_instruction_name[] = {"RLC B", "RLC C", "RLC D", "RLC E", "RLC H", "RLC L", "RLC HL", "RLC A", "RRC B", "RRC C", "RRC D", "RRC E", "RRC H", "RRC L", "RRC HL", "RRC A", 
 "RL B", "RL C", "RL D", "RL E", "RL H", "RL L", "RL HL", "RL A", "RR B", "RR C", "RR D", "RR E", "RR H", "RR L", "RR HL", "RR A", 
 "SLA B", "SLA C", "SLA D", "SLA E", "SLA H", "SLA L", "SLA HL", "SLA A", "SRA B", "SRA C", "SRA D", "SRA E", "SRA H", "SRA L", "SRA HL", "SRA A", 
 "SWAP B", "SWAP C", "SWAP D", "SWAP E", "SWAP H", "SWAP L", "SWAP HL", "SWAP A", "SRL B", "SRL C", "SRL D", "SRL E", "SRL H", "SRL L", "SRL HL", "SRL A", 
@@ -124,7 +124,7 @@ void prefix_print_opcode(uint8_t opcode){
 "SET 4,B", "SET 4,C", "SET 4,D", "SET 4,E", "SET 4,H", "SET 4,L", "SET 4,HL", "SET 4,A", "SET 5,B", "SET 5,C", "SET 5,D", "SET 5,E", "SET 5,H", "SET 5,L", "SET 5,HL", "SET 5,A", 
 "SET 6,B", "SET 6,C", "SET 6,D", "SET 6,E", "SET 6,H", "SET 6,L", "SET 6,HL", "SET 6,A", "SET 7,B", "SET 7,C", "SET 7,D", "SET 7,E", "SET 7,H", "SET 7,L", "SET 7,HL", "SET 7,A"};
 
-	printf("Instruction to implement: %s opcode: 0xcb%.2x \n", instruction_name[opcode], opcode);
+	printf("Instruction to implement: %s opcode: 0xcb%.2x \n", prefixed_instruction_name[opcode], opcode);
 
 }
 void prefixed_instruction(GameBoy *gb){
@@ -137,7 +137,7 @@ void prefixed_instruction(GameBoy *gb){
 	prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, 
 	prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, 
 	prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, 
-	prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, 
+	prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, BIT_7_H, prefix_not_impl, prefix_not_impl, prefix_not_impl, 
 	prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, 
 	prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, 
 	prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, prefix_not_impl, 

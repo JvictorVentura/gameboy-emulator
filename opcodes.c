@@ -176,6 +176,16 @@ void LD_SP_n16(GameBoy *gb){
 	gb->stack_pointer = address;
 }
 
+void BIT_7_H(GameBoy *gb){
+	if( (gb->H & 0x80) == 0x80){	// 7th bit
+		set_flag(&(gb->F), ZERO_FLAG, OFF);
+	}else{
+		set_flag(&(gb->F), ZERO_FLAG, ON);
+	}
+	set_flag(&(gb->F), SUBTRACTION_FLAG, OFF);
+	set_flag(&(gb->F), HALF_CARRY_FLAG, ON);
+
+}
 /*	//get the address
 	uint16_t address;
 	address = fetch(gb);
