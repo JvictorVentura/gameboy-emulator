@@ -93,7 +93,7 @@ int main(int argc, char *argv[]){
 				gb.opcode = fetch(&gb);
 				execute(&gb);
 			}
-
+			cleanup();
 			fclose(rom_file);			
 			free(rom);
 		}
