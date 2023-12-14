@@ -77,3 +77,6 @@ void CP_A_n8(GameBoy *gb);	//0xfe
 void LD_SP_n16(GameBoy *gb);//0x31
 void BIT_7_H(GameBoy *gb);	//0xcb7c
 void LD_C_plus_offset_A(GameBoy *gb);		//0xe2
+void INC_C(GameBoy *gb);		//0x0c
+void LD_address_HL_A(GameBoy *gb);//0x77
+void LD_DE_n16(GameBoy *gb);//0x11

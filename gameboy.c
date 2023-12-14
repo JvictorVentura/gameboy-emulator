@@ -157,14 +157,14 @@ void prefixed_instruction(GameBoy *gb){
 
 void execute(GameBoy *gb){
 	void (*instruction[]) (GameBoy *) =
-{ NOP, not_impl, not_impl, not_impl, not_impl, DEC_B, LD_B_n8, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, DEC_C, LD_C_n8, not_impl, 
-not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
+{ NOP, not_impl, not_impl, not_impl, not_impl, DEC_B, LD_B_n8, not_impl, not_impl, not_impl, not_impl, not_impl, INC_C, DEC_C, LD_C_n8, not_impl, 
+not_impl, LD_DE_n16, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
 JR_NZ_e8, LD_HL_n16, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
 not_impl, LD_SP_n16, LD_address_HLminus_A, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, LD_A_n8, not_impl, 
 not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
 not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
 not_impl, LD_HC, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
-not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
+not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, LD_address_HL_A, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
 not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
 not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
 not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, XOR_A, 
