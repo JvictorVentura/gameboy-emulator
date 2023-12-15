@@ -18,7 +18,7 @@ typedef struct{
 	uint16_t PC;
 
 	//uint8_t ram[RAM_SIZE];
-	uint8_t memory_address[ADDRESS_SIZE];
+	uint8_t memory_address[ADDRESS_SIZE]; 
 	uint8_t screen[SCREEN_HEIGHT][SCREEN_WIDTH];
 
 	uint8_t *rom;
@@ -80,3 +80,5 @@ void LD_C_plus_offset_A(GameBoy *gb);		//0xe2
 void INC_C(GameBoy *gb);		//0x0c
 void LD_address_HL_A(GameBoy *gb);//0x77
 void LD_DE_n16(GameBoy *gb);//0x11
+void LD_A_address_DE(GameBoy *gb);//0x1a
+void CALL_a16(GameBoy *gb);	//0xcd

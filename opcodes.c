@@ -225,7 +225,22 @@ void LD_DE_n16(GameBoy *gb){
 
 }
 
+void LD_A_address_DE(GameBoy *gb){
+	uint16_t address = join_two_bytes(gb->D, gb->E);
+	gb->A = gb->memory_address[address];
+}
 
+void CALL_a16(GameBoy *gb){	
+	uint8_t lower_byte = fetch(gb);
+	uint8_t upper_byte = fetch(gb);
+
+	uint16_t address = join_two_bytes(upper_byte, lower_byte);
+
+	gb->stack_pointer = gb->PC;
+
+	gb->PC = address;
+
+}
 
 /*	//get the address
 	uint16_t address;
