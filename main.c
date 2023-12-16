@@ -12,12 +12,11 @@ uint8_t fetch_temp(){
 		return rom[PC++];
 }
 
-uint8_t load_rom(FILE *rom_file, GameBoy *gb){
-	//uint16_t rom_size;
+uint8_t load_cartridge_rom(FILE *rom_file, GameBoy *gb){
 	fseek(rom_file, 0, SEEK_END);
 	gb->rom_size = ftell(rom_file);
 	rewind(rom_file);
-	//printf("%d\n\n", rom_size);
+
 	gb->rom = (uint8_t *) malloc(gb->rom_size);		// +1?
 	if(gb->rom == NULL)
 		return 1;
@@ -27,18 +26,43 @@ uint8_t load_rom(FILE *rom_file, GameBoy *gb){
 	return 0;
 }
 
-void load_rom_memory_address(GameBoy *gb){
-	const uint16_t end_section = 0x7FFF;
+uint8_t load_boot_rom(FILE *file, GameBoy *gb){
+	fseek(file, 0, SEEK_END);
+	gb->boot_rom_size = ftell(file);
+	rewind(file);
+
+	gb->boot_rom = (uint8_t *) malloc(gb->boot_rom_size);		// +1?
+	if(gb->boot_rom == NULL)
+		return 1;
+	
+	fread(gb->boot_rom, sizeof(uint8_t), gb->boot_rom_size, file);
+
+	return 0;
+}
+
+void load_boot_rom_into_memory(GameBoy *gb){
+	const uint16_t end_section = 0xFF;
 	for(uint16_t i = 0; i <= end_section; ++i){
-		if(i >= gb->rom_size)
+		if(i >= gb->boot_rom_size)
 			break;
-		gb->memory_address[i] = gb->rom[i];
+		gb->memory_address[i] = gb->boot_rom[i];
 	}
 
 }
 
-void initialize_gameboy(GameBoy *gb){
-	gb->PC = 0;
+void load_cartridge_into_memory(GameBoy *gb){
+	const uint16_t end_section = 0x3FFF;
+	const uint16_t start_section = 0x100;
+	for(uint16_t i = 0; i + start_section <= end_section; ++i){
+		if(i >= gb->rom_size)
+			break;
+		gb->memory_address[i + start_section] = gb->rom[i];
+	}
+
+}
+
+void initialize_gameboy(GameBoy *gb, uint16_t start_address){
+	gb->PC = start_address;
 	gb->stop_execution = FALSE;
 	gb->opcode = 0;
 	gb->frequency = 4190000;
@@ -56,26 +80,69 @@ void cleanup(){
   SDL_Quit();
 }
 
-int main(int argc, char *argv[]){
-
-	init();
-	SDL_Event event;
-
-	if(argc > 1){
+void setup_config(int argc, char *argv[], GameBoy *gb){	//	incomplete
+	if( argc == 2 ){
+		initialize_gameboy(gb, 0x100);
 		FILE *rom_file = fopen(argv[1], "r");
 		if(rom_file == NULL){
 			printf("Error opening rom\n");
 		}else{
-			GameBoy gb;
-			uint8_t error = load_rom(rom_file, &gb);	
+			uint8_t error = load_cartridge_rom(rom_file, gb);	
 			if(error == 1){
 				printf("Error loading rom\n");
-				return 0;
+				return ;
 			}
-			initialize_gameboy(&gb);
-			load_rom_memory_address(&gb);
+		}
+	}
+}
 
-			//printf(" result = %.4x\n", join_two_bytes(0xAB, 0xCD));
+int main(int argc, char *argv[]){
+
+	init();
+	SDL_Event event;
+	GameBoy gb;
+
+	if(argc > 1){
+		uint8_t error;
+		//------------------loading cartridge-----------------//
+		FILE *rom_file = fopen(argv[1], "r");
+		if(rom_file == NULL){
+			printf("Error opening cartridge rom\n");
+		}else{
+			
+			error = load_cartridge_rom(rom_file, &gb);	
+			if(error == 1){
+				printf("Error loading cartridge rom\n");
+				return 0;
+			}else{
+				load_cartridge_into_memory(&gb);
+			}
+
+		//------------------loading boot rom-----------------//
+			FILE *boot_rom_file = fopen( "boot/boot_rom.bin" , "r");
+			if(boot_rom_file == NULL){
+				printf("Error opening boot rom\n");
+			}else{
+				error = load_boot_rom(boot_rom_file, &gb);	
+				if(error == 1){
+					printf("Error loading boot rom\n");
+					//return 0;
+				}else{
+					load_boot_rom_into_memory(&gb);
+				}
+			}
+
+
+
+			//initialize_gameboy(&gb);
+			//initialize_gameboy(&gb, 0);
+			if ( boot_rom_file != NULL ){
+				initialize_gameboy(&gb, 0);	//	start at boot rom
+			}else{
+				initialize_gameboy(&gb, 0x100); //	start at cartridge rom
+			}
+
+			//load_game_rom_into_memory(&gb);
 
 			while(gb.stop_execution == FALSE){
 				SDL_PollEvent(&event); 

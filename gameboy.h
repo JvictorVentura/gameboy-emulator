@@ -17,10 +17,11 @@ typedef struct{
 	uint16_t stack_pointer;
 	uint16_t PC;
 
-	//uint8_t ram[RAM_SIZE];
 	uint8_t memory_address[ADDRESS_SIZE]; 
 	uint8_t screen[SCREEN_HEIGHT][SCREEN_WIDTH];
 
+	uint8_t *boot_rom;
+	uint16_t boot_rom_size;
 	uint8_t *rom;
 	uint16_t rom_size;
 
