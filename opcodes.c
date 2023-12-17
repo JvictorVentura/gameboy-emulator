@@ -242,6 +242,11 @@ void CALL_a16(GameBoy *gb){
 
 }
 
+void LD_C_A(GameBoy *gb){
+
+	gb->C = gb->A;
+
+}
 /*	//get the address
 	uint16_t address;
 	address = fetch(gb);

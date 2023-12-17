@@ -83,3 +83,4 @@ void LD_address_HL_A(GameBoy *gb);//0x77
 void LD_DE_n16(GameBoy *gb);//0x11
 void LD_A_address_DE(GameBoy *gb);//0x1a
 void CALL_a16(GameBoy *gb);	//0xcd
+void LD_C_A(GameBoy *gb);		//0x4f
