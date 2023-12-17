@@ -96,14 +96,16 @@ void prefix_print_opcode(uint8_t opcode){
 }
 void prefixed_instruction(GameBoy *gb){
 	gb->opcode = fetch(gb);
-	printf("Instruction : %s\n", prefixed_instruction_name[gb->opcode]);
+	printf("Instruction : %s\nHex: 0xcb%.2x\n\n", prefixed_instruction_name[gb->opcode], gb->opcode);
 	instruction_prefix[gb->opcode](gb);
 
 }
 
 void execute(GameBoy *gb){
-	printf("Instruction : %s\n", instruction_name[gb->opcode]);
+
+	printf("Instruction : %s\nHex: 0x%.2x\n\n", instruction_name[gb->opcode], gb->opcode);
 	instruction[gb->opcode](gb);
+
 }
 
 void handle_interrupts(GameBoy *gb){

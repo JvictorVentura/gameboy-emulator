@@ -19,10 +19,10 @@ void NOP(GameBoy *gb){
 }
 
 void JP_a16(GameBoy *gb){
-	uint8_t byte_A = fetch(gb);
-	uint8_t byte_B = fetch(gb);
+	uint8_t lower_byte = fetch(gb);
+	uint8_t upper_byte = fetch(gb);
 	
-	uint16_t address = join_two_bytes(byte_B, byte_A);//	endianness?
+	uint16_t address = join_two_bytes(upper_byte, lower_byte);//	endianness?
 
 	jump(gb, address);
 }
