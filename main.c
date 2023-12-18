@@ -67,6 +67,7 @@ void initialize_gameboy(GameBoy *gb){
 	gb->opcode = 0;
 	gb->frequency = 4190000;
 	gb->interrupt_status = ON;
+	gb->stack_pointer = 0xFFFE;
 
 }
 

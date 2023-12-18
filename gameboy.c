@@ -79,8 +79,27 @@ uint8_t check_flag(uint8_t *flag_register, uint8_t flag){
 		return ON;
 }
 
+void stack_push_n16(GameBoy *gb, uint16_t value){
+
+	gb->stack_pointer--;
+	gb->memory_address[gb->stack_pointer] = value >> 8;
+		
+	gb->stack_pointer--;
+	gb->memory_address[gb->stack_pointer] = value & 0x00FF;
+}
 
 
+uint16_t stack_pop_n16(GameBoy *gb){
+	
+	uint8_t lower_byte = gb->memory_address[gb->stack_pointer];
+	gb->stack_pointer++;
+
+	uint8_t upper_byte = gb->memory_address[gb->stack_pointer];
+	gb->stack_pointer++;
+
+	return join_two_bytes(upper_byte, lower_byte);
+
+}
 
 
 void print_opcode(uint8_t opcode){

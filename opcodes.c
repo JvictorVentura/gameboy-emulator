@@ -236,7 +236,7 @@ void CALL_a16(GameBoy *gb){
 
 	uint16_t address = join_two_bytes(upper_byte, lower_byte);
 
-	gb->stack_pointer = gb->PC;
+	stack_push_n16(gb, gb->PC);
 
 	gb->PC = address;
 
