@@ -247,6 +247,34 @@ void LD_C_A(GameBoy *gb){
 	gb->C = gb->A;
 
 }
+
+void PUSH_BC(GameBoy *gb){
+	uint16_t BC = join_two_bytes(gb->B, gb->C);
+	stack_push_n16(gb, BC);
+
+}
+
+void RL_C(GameBoy *gb){
+	const uint8_t mask = 0b10000000;
+	uint8_t old_carry_flag = check_flag(&(gb->F), CARRY_FLAG);
+	//uint8_t new_carry_flag;
+	if( (gb->C & mask) == mask ){
+		set_flag(&(gb->F), CARRY_FLAG, ON);
+	}else{
+		set_flag(&(gb->F), CARRY_FLAG, OFF);
+	}
+
+	gb->C <<= 1;
+
+	if(old_carry_flag == ON){
+		gb->C |= 0b00000001;
+	}/*else{
+		gb->C |= 0xfe;
+	}*/
+
+}
+
+
 /*	//get the address
 	uint16_t address;
 	address = fetch(gb);

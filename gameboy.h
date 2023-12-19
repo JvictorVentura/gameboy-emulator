@@ -61,14 +61,14 @@ void stack_push_n16(GameBoy *gb, uint16_t value);
 uint16_t stack_pop_n16(GameBoy *gb);
 
 //	Instructions
-void NOP(GameBoy *gb);		//0x00
-void JP_a16(GameBoy *gb);	//0xc3
-void LD_HC(GameBoy *gb);	//0x61
-void XOR_A(GameBoy *gb);	//0xaf
+void NOP(GameBoy *gb);			//0x00
+void JP_a16(GameBoy *gb);		//0xc3
+void LD_HC(GameBoy *gb);		//0x61
+void XOR_A(GameBoy *gb);		//0xaf
 void LD_HL_n16(GameBoy *gb);//0x21
 void LD_C_n8(GameBoy *gb);	//0x0e
 void LD_B_n8(GameBoy *gb);	//0x06
-void LD_address_HLminus_A(GameBoy *gb);	//0x32
+void LD_address_HLminus_A(GameBoy *gb);//0x32
 void DEC_B(GameBoy *gb);		//0x05
 void JR_NZ_e8(GameBoy *gb);	//0x20						
 void DEC_C(GameBoy *gb);		//0x0d
@@ -79,10 +79,12 @@ void LDH_A_a8(GameBoy *gb);	//0xf0
 void CP_A_n8(GameBoy *gb);	//0xfe
 void LD_SP_n16(GameBoy *gb);//0x31
 void BIT_7_H(GameBoy *gb);	//0xcb7c
-void LD_C_plus_offset_A(GameBoy *gb);		//0xe2
+void LD_C_plus_offset_A(GameBoy *gb);//0xe2
 void INC_C(GameBoy *gb);		//0x0c
 void LD_address_HL_A(GameBoy *gb);//0x77
 void LD_DE_n16(GameBoy *gb);//0x11
 void LD_A_address_DE(GameBoy *gb);//0x1a
 void CALL_a16(GameBoy *gb);	//0xcd
 void LD_C_A(GameBoy *gb);		//0x4f
+void PUSH_BC(GameBoy *gb);	//0xc5
+void RL_C(GameBoy *gb);			//cb11
