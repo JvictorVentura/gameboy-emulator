@@ -44,10 +44,14 @@ void set_flag(uint8_t *flag_register, uint8_t flag, uint8_t set_flag_to){
 	if (set_flag_to == ON){
 		*flag_register = *flag_register | flag;
 	}else{
-		*flag_register = *flag_register & (~flag);
+		if( (*flag_register & flag) == flag){		//if the bit is 1, flip, if its not, do nothing
+			*flag_register = *flag_register ^ flag;
+		}
 	}
 
 }
+
+
 
 uint8_t check_upper_half_carry(uint8_t value_a, uint8_t value_b){
 	value_a = value_a & 0xF;	//  get 4 lower bits

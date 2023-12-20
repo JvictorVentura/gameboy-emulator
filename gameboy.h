@@ -37,7 +37,7 @@ typedef struct{
 //enum {HIGHER, LOWER};
 enum {TRUE, FALSE};
 enum {ON, OFF};
-enum {ZERO_FLAG = 2, SUBTRACTION_FLAG = 4, CARRY_FLAG = 8, HALF_CARRY_FLAG = 16};
+enum {ZERO_FLAG = 0x80, SUBTRACTION_FLAG = 0x40, HALF_CARRY_FLAG = 0x20, CARRY_FLAG = 0x10 };
 
 uint8_t fetch(GameBoy *gb);
 void print_opcode(uint8_t opcode); 
