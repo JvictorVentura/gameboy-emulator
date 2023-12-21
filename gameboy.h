@@ -87,4 +87,6 @@ void LD_A_address_DE(GameBoy *gb);//0x1a
 void CALL_a16(GameBoy *gb);	//0xcd
 void LD_C_A(GameBoy *gb);		//0x4f
 void PUSH_BC(GameBoy *gb);	//0xc5
-void RL_C(GameBoy *gb);			//cb11
+void RL_C(GameBoy *gb);			//0xcb11
+void RL_A(GameBoy *gb);			//0x17
+void POP_BC(GameBoy *gb);		//0xc1

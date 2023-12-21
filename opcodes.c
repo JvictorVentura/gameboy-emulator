@@ -274,6 +274,31 @@ void RL_C(GameBoy *gb){
 
 }
 
+void RL_A(GameBoy *gb){
+	const uint8_t mask = 0b10000000;
+	uint8_t old_carry_flag = check_flag(&(gb->F), CARRY_FLAG);
+
+	if( (gb->A & mask) == mask ){
+		set_flag(&(gb->F), CARRY_FLAG, ON);
+	}else{
+		set_flag(&(gb->F), CARRY_FLAG, OFF);
+	}
+
+	gb->A <<= 1;
+
+	if(old_carry_flag == ON){
+		gb->A |= 0b00000001;
+	}/*else{
+		gb->C |= 0xfe;
+	}*/
+
+}
+
+void POP_BC(GameBoy *gb){
+	uint16_t BC_buffer = stack_pop_n16(gb);
+	load_16b_register( &(gb->B) , &(gb->C), BC_buffer);
+}
+
 
 /*	//get the address
 	uint16_t address;
