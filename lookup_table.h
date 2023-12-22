@@ -1,19 +1,19 @@
 void (*instruction[]) (GameBoy *) =
 { NOP, not_impl, not_impl, not_impl, not_impl, DEC_B, LD_B_n8, not_impl, not_impl, not_impl, not_impl, not_impl, INC_C, DEC_C, LD_C_n8, not_impl, 
-not_impl, LD_DE_n16, not_impl, not_impl, not_impl, not_impl, not_impl, RL_A, not_impl, not_impl, LD_A_address_DE, not_impl, not_impl, not_impl, not_impl, not_impl, 
-JR_NZ_e8, LD_HL_n16, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
-not_impl, LD_SP_n16, LD_address_HLminus_A, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, LD_A_n8, not_impl, 
+not_impl, LD_DE_n16, not_impl, INC_DE, not_impl, not_impl, not_impl, RL_A, not_impl, not_impl, LD_A_address_DE, not_impl, not_impl, not_impl, not_impl, not_impl, 
+JR_NZ_e8, LD_HL_n16, LD_address_HLplus_A, INC_HL, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
+not_impl, LD_SP_n16, LD_address_HLminus_A, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, DEC_A, LD_A_n8, not_impl, 
 not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, LD_C_A, 
 not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
-not_impl, LD_HC, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
-not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, LD_address_HL_A, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
+not_impl, LD_H_C, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
+not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, LD_address_HL_A, not_impl, not_impl, not_impl, LD_A_E, not_impl, not_impl, not_impl, not_impl, 
 not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
 not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
-not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, XOR_A, 
+not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, XOR_A_A, 
 not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
-not_impl, POP_BC, not_impl, JP_a16, not_impl, PUSH_BC, not_impl, not_impl, not_impl, not_impl, not_impl, prefixed_instruction, not_impl, CALL_a16, not_impl, not_impl, 
+not_impl, POP_BC, not_impl, JP_a16, not_impl, PUSH_BC, not_impl, not_impl, not_impl, RET_a16, not_impl, prefixed_instruction, not_impl, CALL_a16, not_impl, not_impl, 
 not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
-LDH_a8_A, not_impl, LD_C_plus_offset_A, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
+LDH_a8_A, not_impl, LD_C_plus_offset_A, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, LD_a16_A, not_impl, not_impl, not_impl, not_impl, not_impl, 
 LDH_A_a8, not_impl, not_impl, DI, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl,  CP_A_n8 };
 
 

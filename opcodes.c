@@ -28,11 +28,12 @@ void JP_a16(GameBoy *gb){
 }
 
 
-void LD_HC(GameBoy *gb){
-	reg_to_reg_8b(&gb->H, &gb->C);
+void LD_H_C(GameBoy *gb){
+	gb->H = gb->C;
+
 }
 
-void XOR_A(GameBoy *gb){	
+void XOR_A_A(GameBoy *gb){	
 	gb->A = gb->A ^ gb->A;
 
 }
@@ -111,12 +112,6 @@ void DEC_C(GameBoy *gb){
 	}else{
 		set_flag(&(gb->F), HALF_CARRY_FLAG, OFF);		// no borrow
 	}
-
-//	if (gb->C < 1){
-//		set_flag(&(gb->F), CARRY_FLAG, ON);		
-//	}else{
-//		set_flag(&(gb->F), CARRY_FLAG, OFF);
-//	}
 
 }
 
@@ -243,9 +238,7 @@ void CALL_a16(GameBoy *gb){
 }
 
 void LD_C_A(GameBoy *gb){
-
 	gb->C = gb->A;
-
 }
 
 void PUSH_BC(GameBoy *gb){
@@ -299,6 +292,66 @@ void POP_BC(GameBoy *gb){
 	load_16b_register( &(gb->B) , &(gb->C), BC_buffer);
 }
 
+void LD_address_HLplus_A(GameBoy *gb){	
+	uint16_t address = join_two_bytes(gb->H, gb->L);
+	gb->memory_address[address] = gb->A;
+	address++;
+	load_16b_register( &(gb->H), &(gb->L), address);
+}
+
+
+void INC_HL(GameBoy *gb){
+	uint16_t value = join_two_bytes(gb->H, gb->L);
+	value++;
+	load_16b_register( &(gb->H), &(gb->L), value);
+}
+
+void RET_a16(GameBoy *gb){	
+	uint16_t address = stack_pop_n16(gb);
+	gb->PC = address;
+
+}
+
+void INC_DE(GameBoy *gb){
+	uint16_t value = join_two_bytes(gb->D, gb->E);
+	value++;
+	load_16b_register( &(gb->D), &(gb->E), value);
+}
+
+void LD_A_E(GameBoy *gb){
+	gb->A = gb->E;
+}
+
+
+void LD_a16_A(GameBoy *gb){
+	uint8_t lower_byte = fetch(gb);
+	uint8_t upper_byte = fetch(gb);
+
+	uint16_t address = join_two_bytes(upper_byte, lower_byte);
+
+	gb->memory_address[address] = gb->A;
+
+}
+
+void DEC_A(GameBoy *gb){	
+	uint8_t before_decrement = gb->A;
+	gb->A--;
+	if(gb->A == 0){
+		set_flag(&(gb->F), ZERO_FLAG, ON);
+	}else{
+		set_flag(&(gb->F), ZERO_FLAG, OFF);
+	}
+
+	set_flag(&(gb->F), SUBTRACTION_FLAG, ON);
+
+	if (check_lower_half_carry(before_decrement, 1) == TRUE){		//	borrow
+		set_flag(&(gb->F), HALF_CARRY_FLAG, ON);
+	}else{
+		set_flag(&(gb->F), HALF_CARRY_FLAG, OFF);		// no borrow
+	}
+
+
+}
 
 /*	//get the address
 	uint16_t address;
