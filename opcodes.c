@@ -51,12 +51,12 @@ void LD_HL_n16(GameBoy *gb){
 
 void LD_C_n8(GameBoy *gb){
 	uint8_t value = fetch(gb);
-	load_8b_register( &(gb->C), value);
+	gb->C = value;
 }
 
 void LD_B_n8(GameBoy *gb){
 	uint8_t value = fetch(gb);
-	load_8b_register( &(gb->B), value);
+	gb->B = value;
 }
 
 
@@ -117,7 +117,7 @@ void DEC_C(GameBoy *gb){
 
 void LD_A_n8(GameBoy *gb){
 	uint8_t value = fetch(gb);
-	load_8b_register( &(gb->A), value);
+	gb->A = value;
 }
 
 void DI(GameBoy *gb){
@@ -132,7 +132,7 @@ void LDH_a8_A(GameBoy *gb){
 
 void LDH_A_a8(GameBoy *gb){
 	uint8_t offset = fetch(gb);
-	 gb->A = gb->memory_address[0xFF00 + offset];
+	gb->A = gb->memory_address[0xFF00 + offset];
 }
 
 void CP_A_n8(GameBoy *gb){	
@@ -351,6 +351,57 @@ void DEC_A(GameBoy *gb){
 	}
 
 
+}
+
+
+void JR_Z_e8(GameBoy *gb){
+	int8_t address_offset = fetch(gb);
+
+	if( check_flag( &(gb->F), ZERO_FLAG) == ON ){
+		gb->PC += address_offset;
+	}
+}
+
+void LD_L_n8(GameBoy *gb){
+	uint8_t value = fetch(gb);
+	gb->L = value;
+}
+
+void JR_e8(GameBoy *gb){
+	int8_t address_offset = fetch(gb);
+	gb->PC += address_offset;
+}
+
+void LD_H_A(GameBoy *gb){
+	gb->H = gb->A;
+}
+
+void LD_D_A(GameBoy *gb){
+	gb->D = gb->A;
+}
+
+void INC_B(GameBoy *gb){
+	uint8_t before_increment = gb->B;
+	gb->B++;
+	if(gb->B == 0){
+		set_flag(&(gb->F), ZERO_FLAG, ON);
+	}else{
+		set_flag(&(gb->F), ZERO_FLAG, OFF);
+	}
+
+	set_flag(&(gb->F), SUBTRACTION_FLAG, OFF);
+
+	if (check_upper_half_carry(before_increment, 1) == TRUE){		//	borrow
+		set_flag(&(gb->F), HALF_CARRY_FLAG, ON);
+	}else{
+		set_flag(&(gb->F), HALF_CARRY_FLAG, OFF);		// no borrow
+	}
+
+}
+
+void LD_E_n8(GameBoy *gb){
+	uint8_t value = fetch(gb);
+	gb->E = value;
 }
 
 /*	//get the address
