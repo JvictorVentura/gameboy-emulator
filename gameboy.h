@@ -59,6 +59,7 @@ uint8_t check_lower_half_carry(int8_t value_a, int8_t value_b);
 uint8_t check_flag(uint8_t *flag_register, uint8_t flag);
 void stack_push_n16(GameBoy *gb, uint16_t value);
 uint16_t stack_pop_n16(GameBoy *gb);
+uint16_t get_next_two_bytes(GameBoy *gb);
 
 //	Instructions
 void NOP(GameBoy *gb);			//0x00

@@ -19,11 +19,10 @@ void NOP(GameBoy *gb){
 }
 
 void JP_a16(GameBoy *gb){
-	uint8_t lower_byte = fetch(gb);
-	uint8_t upper_byte = fetch(gb);
-	
-	uint16_t address = join_two_bytes(upper_byte, lower_byte);//	endianness?
-
+	//uint8_t lower_byte = fetch(gb);
+	//uint8_t upper_byte = fetch(gb);
+	//uint16_t address = join_two_bytes(upper_byte, lower_byte);//	endianness?
+	uint16_t address = get_next_two_bytes(gb);
 	jump(gb, address);
 }
 
@@ -39,13 +38,11 @@ void XOR_A_A(GameBoy *gb){
 }
 
 void LD_HL_n16(GameBoy *gb){	
-	//get the value
-	uint8_t byte_low = fetch(gb);
-	uint8_t byte_high = fetch(gb);
-	uint16_t value = join_two_bytes(byte_high, byte_low);
-
-	//assign value H and L
-	
+	//uint8_t byte_low = fetch(gb);
+	//uint8_t byte_high = fetch(gb);
+	//uint16_t value = join_two_bytes(byte_high, byte_low);
+		
+	uint16_t value = get_next_two_bytes(gb);
 	load_16b_register( &(gb->H), &(gb->L), value);
 }
 
@@ -165,9 +162,10 @@ void CP_A_n8(GameBoy *gb){
 }
 
 void LD_SP_n16(GameBoy *gb){
-	uint8_t lower_byte = fetch(gb);	
-	uint8_t higher_byte = fetch(gb);	
-	uint16_t address = join_two_bytes(higher_byte, lower_byte);
+	//uint8_t lower_byte = fetch(gb);	
+	//uint8_t higher_byte = fetch(gb);	
+	//uint16_t address = join_two_bytes(higher_byte, lower_byte);
+	uint16_t address = get_next_two_bytes(gb);
 	gb->stack_pointer = address;
 }
 
@@ -211,11 +209,10 @@ void LD_address_HL_A(GameBoy *gb){
 }
 
 void LD_DE_n16(GameBoy *gb){
-	uint8_t lower_byte = fetch(gb);
-	uint8_t upper_byte = fetch(gb);
-
-	uint16_t value = join_two_bytes(upper_byte, lower_byte);
-
+	//uint8_t lower_byte = fetch(gb);
+	//uint8_t upper_byte = fetch(gb);
+	//uint16_t value = join_two_bytes(upper_byte, lower_byte);
+	uint16_t value = get_next_two_bytes(gb);
 	load_16b_register( &(gb->D), &(gb->E), value);
 
 }
@@ -226,11 +223,11 @@ void LD_A_address_DE(GameBoy *gb){
 }
 
 void CALL_a16(GameBoy *gb){	
-	uint8_t lower_byte = fetch(gb);
-	uint8_t upper_byte = fetch(gb);
+	//uint8_t lower_byte = fetch(gb);
+	//uint8_t upper_byte = fetch(gb);
+	//uint16_t address = join_two_bytes(upper_byte, lower_byte);
 
-	uint16_t address = join_two_bytes(upper_byte, lower_byte);
-
+	uint16_t address = get_next_two_bytes(gb);
 	stack_push_n16(gb, gb->PC);
 
 	gb->PC = address;
@@ -324,11 +321,11 @@ void LD_A_E(GameBoy *gb){
 
 
 void LD_a16_A(GameBoy *gb){
-	uint8_t lower_byte = fetch(gb);
-	uint8_t upper_byte = fetch(gb);
+	//uint8_t lower_byte = fetch(gb);
+	//uint8_t upper_byte = fetch(gb);
+	//uint16_t address = join_two_bytes(upper_byte, lower_byte);
 
-	uint16_t address = join_two_bytes(upper_byte, lower_byte);
-
+	uint16_t address = get_next_two_bytes(gb);
 	gb->memory_address[address] = gb->A;
 
 }

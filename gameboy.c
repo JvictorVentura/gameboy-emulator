@@ -105,6 +105,11 @@ uint16_t stack_pop_n16(GameBoy *gb){
 
 }
 
+uint16_t get_next_two_bytes(GameBoy *gb){
+	uint8_t byte_low = fetch(gb);
+	uint8_t byte_high = fetch(gb);
+	return join_two_bytes(byte_high, byte_low);
+}
 
 void print_opcode(uint8_t opcode){
 	//	for debug purposes
