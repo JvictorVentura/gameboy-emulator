@@ -66,7 +66,7 @@ void initialize_gameboy(GameBoy *gb){
 	gb->stop_execution = FALSE;
 	gb->opcode = 0;
 	gb->frequency = 4190000;
-	gb->interrupt_status = ON;
+	gb->INTERRUPT_ENABLE= OFF;
 	gb->stack_pointer = 0xFFFE;
 
 }
@@ -119,11 +119,15 @@ int main(int argc, char *argv[]){
 
 				//printf("C = %.2x\n", gb.C);
 				//printf("H = %.2x\n", gb.H);
-				if (gb.interrupt_status == ON){
+				if (gb.INTERRUPT_ENABLE == ON){
 					handle_interrupts(&gb);
 				}
 				gb.opcode = fetch(&gb);
 				execute(&gb);
+				if ( gb.PC >= 0x100){	//	temporary
+					printf("end of boot rom\n");
+					gb.PC = 0x100;
+				}
 			}
 			cleanup();
 			fclose(rom_file);			

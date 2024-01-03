@@ -29,8 +29,28 @@ typedef struct{
 	uint8_t stop_execution;
 
 	uint32_t frequency;
-	uint8_t interrupt_status;
 } GameBoy;
+
+//	Interrupt Controller
+#define	INTERRUPT_FLAG 			memory_address[0xFF0F] 
+#define	INTERRUPT_ENABLE 		memory_address[0xFFFF] 
+
+//	Joypad Input
+#define JOYPAD 							memory_address[0xFF00]
+
+//	PPU
+#define	LCD_CONTROL					memory_address[0xFF40]
+#define	LCDC_STATUS					memory_address[0xFF41]
+#define	SCROLL_Y						memory_address[0xFF42]
+#define	SCROLL_X						memory_address[0xFF43]
+#define	LCDC_Y_COORDINATE		memory_address[0xFF44]
+#define	LY_COMPARE					memory_address[0xFF45]
+#define	DMA									memory_address[0xFF46]
+#define	BG_PALETTE_DATA			memory_address[0xFF47]
+#define	OBJECT_PALETTE_0		memory_address[0xFF48]
+#define	OBJECT_PALETTE_1		memory_address[0xFF49]
+#define	WINDOW_Y_POSITION		memory_address[0xFF4A]
+#define	WINDOW_X_POSITION		memory_address[0xFF4B]
 
 //uint8_t ram[RAM_SIZE];
 //uint8_t screen[SCREEN_HEIGHT][SCREEN_WIDTH]; 
