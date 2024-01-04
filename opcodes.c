@@ -118,7 +118,11 @@ void LD_A_n8(GameBoy *gb){
 }
 
 void DI(GameBoy *gb){
-	gb->INTERRUPT_ENABLE = OFF;
+	gb->interrupt_master_enable = OFF;
+}
+
+void EI(GameBoy *gb){
+	gb->interrupt_master_enable = ON;
 }
 
 

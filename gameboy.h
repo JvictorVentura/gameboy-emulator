@@ -27,7 +27,10 @@ typedef struct{
 
 	uint8_t opcode;
 	uint8_t stop_execution;
+	uint8_t interrupt_master_enable;
 
+	uint32_t cycle;
+	uint32_t render_frequency;
 	uint32_t frequency;
 } GameBoy;
 
@@ -125,3 +128,4 @@ void LD_H_A(GameBoy *gb);		//0x67
 void LD_D_A(GameBoy *gb);		//0x57
 void INC_B(GameBoy *gb);		//0x04
 void LD_E_n8(GameBoy *gb);	//0x1e
+void EI(GameBoy *gb);				//0xfb

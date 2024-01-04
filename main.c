@@ -65,8 +65,9 @@ void initialize_gameboy(GameBoy *gb){
 	gb->PC = 0;
 	gb->stop_execution = FALSE;
 	gb->opcode = 0;
-	gb->frequency = 4190000;
-	gb->INTERRUPT_ENABLE= OFF;
+	//gb->frequency = 4190000;
+	gb->frequency = 1000000;
+	gb->interrupt_master_enable= OFF;
 	gb->stack_pointer = 0xFFFE;
 
 }
@@ -119,7 +120,7 @@ int main(int argc, char *argv[]){
 
 				//printf("C = %.2x\n", gb.C);
 				//printf("H = %.2x\n", gb.H);
-				if (gb.INTERRUPT_ENABLE == ON){
+				if (gb.interrupt_master_enable == ON){
 					handle_interrupts(&gb);
 				}
 				gb.opcode = fetch(&gb);

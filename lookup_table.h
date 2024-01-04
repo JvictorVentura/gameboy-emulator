@@ -14,7 +14,7 @@ not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
 not_impl, POP_BC, not_impl, JP_a16, not_impl, PUSH_BC, not_impl, not_impl, not_impl, RET_a16, not_impl, prefixed_instruction, not_impl, CALL_a16, not_impl, not_impl, 
 not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, 
 LDH_a8_A, not_impl, LD_C_plus_offset_A, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, LD_a16_A, not_impl, not_impl, not_impl, not_impl, not_impl, 
-LDH_A_a8, not_impl, not_impl, DI, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl,  CP_A_n8 };
+LDH_A_a8, not_impl, not_impl, DI, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, EI, not_impl, not_impl,  CP_A_n8 };
 
 
 
