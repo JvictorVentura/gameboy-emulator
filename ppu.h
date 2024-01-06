@@ -1,3 +1,4 @@
+#define MAX_SPRITES 10
 typedef struct{
 	uint8_t y_pos;
 	uint8_t x_pos;
