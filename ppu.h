@@ -8,4 +8,6 @@ typedef struct{
 	uint8_t attributes;
 
 }sprite;
-void ppu_execute();
+void ppu_execute(GameBoy *gb);
+void search_OAM(uint8_t screen_Y, sprite (*current_line_sprites)[10], GameBoy *gb);
+

@@ -3,6 +3,11 @@
 #include "ppu.h"
 
 void ppu_execute(GameBoy *gb){
+	sprite sprites[10];
+	for( uint8_t line = 0; line < SCREEN_HEIGHT; ++ line){
+		search_OAM(line, &sprites, gb);
+
+	}
 	//	render one line
 }
 
@@ -59,7 +64,7 @@ void sort_sprite(sprite *sprite_array, uint8_t sprite_count){
 
 }
 
-void search_OAM(uint8_t screen_Y, sprite *current_line_sprites[], GameBoy *gb){
+void search_OAM(uint8_t screen_Y, sprite (*current_line_sprites)[10], GameBoy *gb){
 	sprite sprite_array[40];
 	uint8_t sprite_count = 0;
 	sprite *buffer_sprite;
@@ -67,11 +72,17 @@ void search_OAM(uint8_t screen_Y, sprite *current_line_sprites[], GameBoy *gb){
 		if(is_sprite_on_current_line(screen_Y, gb->memory_address[index]) ){
 			buffer_sprite = fetch_sprite(index, gb);	
 			//copy_sprite_to_array(buffer_sprite, sprite_array, sprite_count);
-			copy_sprite(&sprite_array[sprite_count], buffer_sprite);
+			if(buffer_sprite->x_pos > 0){
+				copy_sprite(&sprite_array[sprite_count], buffer_sprite);
+				sprite_count++;
+			}
 			free(buffer_sprite);
-			sprite_count++;
 		}
 
+	}
+
+	for( uint8_t i = 0; i < 10; ++i ){
+		copy_sprite(current_line_sprites[i], &sprite_array[i]);
 	}
 
 }
