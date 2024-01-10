@@ -405,6 +405,30 @@ void LD_E_n8(GameBoy *gb){
 	gb->E = value;
 }
 
+void DEC_D(GameBoy *gb){	
+	uint8_t before_decrement = gb->D;
+	gb->D--;
+	if(gb->D == 0){
+		set_flag(&(gb->F), ZERO_FLAG, ON);
+	}else{
+		set_flag(&(gb->F), ZERO_FLAG, OFF);
+	}
+
+	set_flag(&(gb->F), SUBTRACTION_FLAG, ON);
+
+	if (check_lower_half_carry(before_decrement, 1) == TRUE){		//	borrow
+		set_flag(&(gb->F), HALF_CARRY_FLAG, ON);
+	}else{
+		set_flag(&(gb->F), HALF_CARRY_FLAG, OFF);		// no borrow
+	}
+
+}
+
+void LD_D_n8(GameBoy *gb){
+	uint8_t value = fetch(gb);
+	gb->D = value;
+}
+
 /*	//get the address
 	uint16_t address;
 	address = fetch(gb);

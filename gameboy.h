@@ -129,3 +129,5 @@ void LD_D_A(GameBoy *gb);		//0x57
 void INC_B(GameBoy *gb);		//0x04
 void LD_E_n8(GameBoy *gb);	//0x1e
 void EI(GameBoy *gb);				//0xfb
+void DEC_D(GameBoy *gb);		//0x15
+void LD_D_n8(GameBoy *gb);	//0x16
