@@ -1,6 +1,6 @@
 void (*instruction[]) (GameBoy *) =
 { NOP, not_impl, not_impl, not_impl, INC_B, DEC_B, LD_B_n8, not_impl, not_impl, not_impl, not_impl, not_impl, INC_C, DEC_C, LD_C_n8, not_impl, 
-not_impl, LD_DE_n16, not_impl, INC_DE, not_impl, not_impl, not_impl, RL_A, JR_e8, not_impl, LD_A_address_DE, not_impl, not_impl, not_impl, LD_E_n8, not_impl, 
+not_impl, LD_DE_n16, not_impl, INC_DE, not_impl, DEC_D, LD_D_n8, RL_A, JR_e8, not_impl, LD_A_address_DE, not_impl, not_impl, not_impl, LD_E_n8, not_impl, 
 JR_NZ_e8, LD_HL_n16, LD_address_HLplus_A, INC_HL, not_impl, not_impl, not_impl, not_impl, JR_Z_e8, not_impl, not_impl, not_impl, not_impl, not_impl, LD_L_n8, not_impl, 
 not_impl, LD_SP_n16, LD_address_HLminus_A, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, DEC_A, LD_A_n8, not_impl, 
 not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, not_impl, LD_C_A, 
