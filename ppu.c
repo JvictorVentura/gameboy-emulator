@@ -64,6 +64,12 @@ void sort_sprite(sprite *sprite_array, uint8_t sprite_count){
 
 }
 
+uint8_t get_sprite_height(){
+	uint8_t height = 8; //	will change later	
+
+	return height;
+}
+
 void search_OAM(uint8_t screen_Y, sprite (*current_line_sprites)[10], GameBoy *gb){
 	sprite sprite_array[40];
 	uint8_t sprite_count = 0;
@@ -72,10 +78,12 @@ void search_OAM(uint8_t screen_Y, sprite (*current_line_sprites)[10], GameBoy *g
 		if(is_sprite_on_current_line(screen_Y, gb->memory_address[index]) ){
 			buffer_sprite = fetch_sprite(index, gb);	
 			//copy_sprite_to_array(buffer_sprite, sprite_array, sprite_count);
-			if(buffer_sprite->x_pos > 0){
+			//if(buffer_sprite->x_pos > 0){
+			if( (screen_Y + 16) >= buffer_sprite->y_pos && (screen_Y + 16) < (buffer_sprite->y_pos + get_sprite_height(buffer_sprite)) ){			// this is ugly, will refactor later
 				copy_sprite(&sprite_array[sprite_count], buffer_sprite);
 				sprite_count++;
 			}
+			//}
 			free(buffer_sprite);
 		}
 
