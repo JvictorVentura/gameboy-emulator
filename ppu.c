@@ -99,3 +99,32 @@ void search_OAM(uint8_t screen_Y, sprite (*current_line_sprites)[10], GameBoy *g
 	}
 
 }
+
+
+void horizontal_flip_sprite(uint8_t (*sprite)[8][8]){
+	uint8_t pixel_buffer;	
+	const uint8_t size = 7;
+	
+	for(uint8_t i = 0; i <= size; ++i){
+		for(uint8_t j = 0; j <= size; ++j){
+			pixel_buffer = *sprite[i][j];
+			*sprite[i][j] = *sprite[i][pixel_buffer - j];
+			*sprite[i][pixel_buffer - j] = pixel_buffer;
+		}
+	}
+
+}
+
+void vertical_flip_sprite(uint8_t (*sprite)[8][8]){
+	uint8_t pixel_buffer;	
+	const uint8_t size = 7;
+	
+	for(uint8_t i = 0; i <= size; ++i){
+		for(uint8_t j = 0; j <= size; ++j){
+			pixel_buffer = *sprite[j][i];
+			*sprite[j][i] = *sprite[j][pixel_buffer - i];
+			*sprite[j][pixel_buffer - i] = pixel_buffer;
+		}
+	}
+
+}
