@@ -1,5 +1,3 @@
-#include "gameboy.h"
-#include <stdlib.h>
 #include "ppu.h"
 
 void ppu_execute(GameBoy *gb){
@@ -43,13 +41,6 @@ void copy_sprite(sprite *receiver, sprite *source){
 	receiver->attributes = source->attributes;	
 }
 
-/*void copy_sprite_to_array(sprite *buffer_sprite, sprite *sprite_array, uint8_t sprite_count){
-	sprite_array[sprite_count].y_pos = buffer_sprite->y_pos;	
-	sprite_array[sprite_count].x_pos = buffer_sprite->x_pos;	
-	sprite_array[sprite_count].tile_index = buffer_sprite->tile_index;	
-	sprite_array[sprite_count].attributes = buffer_sprite->attributes;	
-}
-*/
 void sort_sprite(sprite *sprite_array, uint8_t sprite_count){
 	sprite buffer;
 	uint8_t ordered = FALSE;
@@ -92,8 +83,6 @@ void search_OAM(uint8_t screen_Y, sprite (*current_line_sprites)[10], GameBoy *g
 	}
 
 	
-
-	
 	for( uint8_t i = 0; i < 10; ++i ){
 		copy_sprite(current_line_sprites[i], &sprite_array[i]);
 	}
@@ -108,8 +97,8 @@ void horizontal_flip_sprite(uint8_t (*sprite)[8][8]){
 	for(uint8_t i = 0; i <= size; ++i){
 		for(uint8_t j = 0; j <= size; ++j){
 			pixel_buffer = *sprite[i][j];
-			*sprite[i][j] = *sprite[i][pixel_buffer - j];
-			*sprite[i][pixel_buffer - j] = pixel_buffer;
+			*sprite[i][j] = *sprite[i][size - j];
+			*sprite[i][size - j] = pixel_buffer;
 		}
 	}
 
@@ -122,8 +111,8 @@ void vertical_flip_sprite(uint8_t (*sprite)[8][8]){
 	for(uint8_t i = 0; i <= size; ++i){
 		for(uint8_t j = 0; j <= size; ++j){
 			pixel_buffer = *sprite[j][i];
-			*sprite[j][i] = *sprite[j][pixel_buffer - i];
-			*sprite[j][pixel_buffer - i] = pixel_buffer;
+			*sprite[j][i] = *sprite[size - j][i];
+			*sprite[size - j][i] = pixel_buffer;
 		}
 	}
 

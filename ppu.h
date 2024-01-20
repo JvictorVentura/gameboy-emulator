@@ -1,3 +1,6 @@
+#include "gameboy.h"
+#include <stdlib.h>
+
 #define LINE_MAX_SPRITES 10
 #define OAM_MAX_SPRITES 40
 enum {NORMAL_SPRITE= 8, LARGE_SPRITE= 16};
