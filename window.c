@@ -1,9 +1,5 @@
 #include "window.h"
-#include <stdio.h>
-//#define TRUE 1
-//#define FALSE 0
 
-enum {TRUE, FALSE};
 SDL_Window *window;
 SDL_Event event;
 void init(){
@@ -23,8 +19,8 @@ void get_event(){
 uint8_t is_event_quit(){
 	if (event.type == SDL_QUIT){
 		printf("%d\n",event.type);
-		return TRUE;
+		return true;
 	}else{
-		return FALSE;
+		return false;
 	}
 }

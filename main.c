@@ -105,8 +105,8 @@ int main(int argc, char *argv[]){
   			//if (event.type == SDL_QUIT) {
   				gb.stop_execution = is_event_quit();
   			//}			
-				//printf("PC = %.4x\n", gb.PC);
-				//printf("OPCODE = %.4x\n", gb.opcode);
+				printf("PC = %.4x\n", gb.PC);
+				printf("OPCODE = %.4x\n", gb.opcode);
 
 				//printf("C = %.2x\n", gb.C);
 				//printf("H = %.2x\n", gb.H);
@@ -116,9 +116,9 @@ int main(int argc, char *argv[]){
 				gb.opcode = fetch(&gb);
 				execute(&gb);
 				if ( gb.PC >= 0x100){	//	temporary
-					printf("end of boot rom\n");
-					gb.PC = 0x100;
-				}
+				 	printf("end of boot rom\n");
+				 	gb.PC = 0x100;
+				 }
 			}
 			cleanup();
 			fclose(rom_file);			
