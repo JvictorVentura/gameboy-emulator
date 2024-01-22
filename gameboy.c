@@ -10,13 +10,13 @@ uint8_t fetch(GameBoy *gb){
 void not_impl(GameBoy *gb){
 	//printf("Instruction not implemented\n");
 	print_opcode(gb->opcode);
-	gb->stop_execution = TRUE;
+	gb->stop_execution = true;
 }
 
 void prefix_not_impl(GameBoy *gb){
 	//printf("Instruction not implemented\n");
 	prefix_print_opcode(gb->opcode);
-	gb->stop_execution = TRUE;
+	gb->stop_execution = true;
 }
 
 void jump(GameBoy *gb, uint16_t address){
@@ -58,9 +58,9 @@ uint8_t check_upper_half_carry(uint8_t value_a, uint8_t value_b){
 	value_b = value_b & 0xF;	//  get 4 lower bits
 	uint8_t result = value_a + value_b;
 	if (result >= 0x10){
-		return TRUE;
+		return true;
 	}else{
-		return FALSE;
+		return false;
 	}
 }
 
@@ -69,9 +69,9 @@ uint8_t check_lower_half_carry(int8_t value_a, int8_t value_b){		// WRONG FIX LA
 	value_b = value_b & 0xF;	//  get 4 lower bits
 	int8_t result = value_a - value_b;
 	if (result < 0){		//	borrow
-		return TRUE;
+		return true;
 	}else{
-		return FALSE;
+		return false;
 	}
 
 }

@@ -2,6 +2,7 @@
 #define SCREEN_HEIGHT 144
 #define RAM_SIZE 8192
 #define ADDRESS_SIZE 65535
+#include <stdbool.h>
 #include <stdint.h>
 
 typedef struct{
@@ -58,7 +59,6 @@ typedef struct{
 //uint8_t ram[RAM_SIZE];
 //uint8_t screen[SCREEN_HEIGHT][SCREEN_WIDTH]; 
 //enum {HIGHER, LOWER};
-enum {TRUE, FALSE};
 enum {ON, OFF};
 enum {ZERO_FLAG = 0x80, SUBTRACTION_FLAG = 0x40, HALF_CARRY_FLAG = 0x20, CARRY_FLAG = 0x10 };
 

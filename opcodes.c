@@ -6,9 +6,9 @@
 
 void STOP(GameBoy *gb){
 
-	uint8_t stop_loop = FALSE;
+	uint8_t stop_loop = false;
 
-	while( stop_loop == FALSE){
+	while( stop_loop == false){
 		//check for any button press
 	}
 
@@ -75,7 +75,7 @@ void DEC_B(GameBoy *gb){
 
 	set_flag(&(gb->F), SUBTRACTION_FLAG, ON);
 
-	if (check_lower_half_carry(before_decrement, 1) == TRUE){		//	borrow
+	if (check_lower_half_carry(before_decrement, 1) == true){		//	borrow
 		set_flag(&(gb->F), HALF_CARRY_FLAG, ON);
 	}else{
 		set_flag(&(gb->F), HALF_CARRY_FLAG, OFF);		// no borrow
@@ -104,7 +104,7 @@ void DEC_C(GameBoy *gb){
 
 	set_flag(&(gb->F), SUBTRACTION_FLAG, ON);
 
-	if (check_lower_half_carry(before_decrement, 1) == TRUE){		//	borrow
+	if (check_lower_half_carry(before_decrement, 1) == true){		//	borrow
 		set_flag(&(gb->F), HALF_CARRY_FLAG, ON);
 	}else{
 		set_flag(&(gb->F), HALF_CARRY_FLAG, OFF);		// no borrow
@@ -149,7 +149,7 @@ void CP_A_n8(GameBoy *gb){
 
 	set_flag(&(gb->F), SUBTRACTION_FLAG, ON);
 
-	if (check_lower_half_carry(before_subtraction, value) == TRUE){		
+	if (check_lower_half_carry(before_subtraction, value) == true){		
 		set_flag(&(gb->F), HALF_CARRY_FLAG, ON);
 	}else{
 		set_flag(&(gb->F), HALF_CARRY_FLAG, OFF);		
@@ -199,7 +199,7 @@ void INC_C(GameBoy *gb){
 
 	set_flag(&(gb->F), SUBTRACTION_FLAG, OFF);
 
-	if (check_upper_half_carry(before_increment, 1) == TRUE){		//	borrow
+	if (check_upper_half_carry(before_increment, 1) == true){		//	borrow
 		set_flag(&(gb->F), HALF_CARRY_FLAG, ON);
 	}else{
 		set_flag(&(gb->F), HALF_CARRY_FLAG, OFF);		// no borrow
@@ -345,7 +345,7 @@ void DEC_A(GameBoy *gb){
 
 	set_flag(&(gb->F), SUBTRACTION_FLAG, ON);
 
-	if (check_lower_half_carry(before_decrement, 1) == TRUE){		//	borrow
+	if (check_lower_half_carry(before_decrement, 1) == true){		//	borrow
 		set_flag(&(gb->F), HALF_CARRY_FLAG, ON);
 	}else{
 		set_flag(&(gb->F), HALF_CARRY_FLAG, OFF);		// no borrow
@@ -392,7 +392,7 @@ void INC_B(GameBoy *gb){
 
 	set_flag(&(gb->F), SUBTRACTION_FLAG, OFF);
 
-	if (check_upper_half_carry(before_increment, 1) == TRUE){		//	borrow
+	if (check_upper_half_carry(before_increment, 1) == true){		//	borrow
 		set_flag(&(gb->F), HALF_CARRY_FLAG, ON);
 	}else{
 		set_flag(&(gb->F), HALF_CARRY_FLAG, OFF);		// no borrow
@@ -416,7 +416,7 @@ void DEC_D(GameBoy *gb){
 
 	set_flag(&(gb->F), SUBTRACTION_FLAG, ON);
 
-	if (check_lower_half_carry(before_decrement, 1) == TRUE){		//	borrow
+	if (check_lower_half_carry(before_decrement, 1) == true){		//	borrow
 		set_flag(&(gb->F), HALF_CARRY_FLAG, ON);
 	}else{
 		set_flag(&(gb->F), HALF_CARRY_FLAG, OFF);		// no borrow

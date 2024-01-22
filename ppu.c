@@ -25,13 +25,13 @@ sprite *fetch_sprite(uint16_t index, GameBoy *gb){
 
 uint8_t is_sprite_on_current_line(uint8_t screen_Y, uint8_t sprite_Y, uint8_t sprite_height){
 	if((screen_Y + 16) < sprite_Y)		
-		return FALSE;		// is above the top of the sprite
+		return false;		// is above the top of the sprite
 
 	if((screen_Y + 16) >= (sprite_Y + sprite_height))		
-		return FALSE;		// is below the bottom of the sprite
+		return false;		// is below the bottom of the sprite
 	
 
-	return TRUE;
+	return true;
 }
 
 void copy_sprite(sprite *receiver, sprite *source){
@@ -43,15 +43,15 @@ void copy_sprite(sprite *receiver, sprite *source){
 
 void sort_sprite(sprite *sprite_array, uint8_t sprite_count){
 	sprite buffer;
-	uint8_t ordered = FALSE;
+	uint8_t ordered = false;
 	while(!ordered){
-		ordered = TRUE;
+		ordered = true;
 		for( uint8_t index = 0; index < sprite_count - 1; ++index){
 			if(sprite_array[index].x_pos > sprite_array[index + 1].x_pos ){	//	swap
 				copy_sprite(&buffer, &sprite_array[index]);
 				copy_sprite(&sprite_array[index], &sprite_array[index + 1]);
 				copy_sprite(&sprite_array[index] ,&buffer);
-				ordered = FALSE;
+				ordered = false;
 			}
 		}
 	}

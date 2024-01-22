@@ -62,7 +62,7 @@ void load_cartridge_into_memory(GameBoy *gb){
 
 void initialize_gameboy(GameBoy *gb){
 	gb->PC = 0;
-	gb->stop_execution = FALSE;
+	gb->stop_execution = false;
 	gb->opcode = 0;
 	//gb->frequency = 4190000;
 	gb->frequency = 1000000;
@@ -100,7 +100,7 @@ int main(int argc, char *argv[]){
 			initialize_gameboy(&gb);	
 
 			// start execution
-			while(gb.stop_execution == FALSE){
+			while(gb.stop_execution == false){
 				get_event();
   			//if (event.type == SDL_QUIT) {
   				gb.stop_execution = is_event_quit();
