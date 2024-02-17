@@ -73,7 +73,6 @@ void not_impl(GameBoy *gb);
 void prefix_not_impl(GameBoy *gb);
 void jump(GameBoy *gb, uint16_t address);
 uint16_t join_two_bytes(uint8_t byte_A, uint8_t byte_B);// join 2 bytes in one variable of 16bit and return, example: receives 0xc3 and 0x02 returns 0xc302
-//void reg_to_reg_8b(uint8_t *reg_A, uint8_t *reg_B);//	register passed to reg_A receives the contents of the register passed to reg_B
 void load_16b_register(uint8_t *high_reg, uint8_t *low_reg, uint16_t value);
 //void load_8b_register(uint8_t *reg, uint8_t value);
 void set_flag(uint8_t *flag_register, uint8_t flag, uint8_t set_flag_to);

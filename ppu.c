@@ -23,7 +23,7 @@ sprite *fetch_sprite(uint16_t index, GameBoy *gb){
 	}
 }
 
-uint8_t is_sprite_on_current_line(uint8_t screen_Y, uint8_t sprite_Y, uint8_t sprite_height){
+uint8_t is_sprite_on_current_line(const uint8_t screen_Y, const uint8_t sprite_Y, const uint8_t sprite_height){
 	if((screen_Y + 16) < sprite_Y)		
 		return false;		// is above the top of the sprite
 
@@ -44,21 +44,25 @@ void copy_sprite(sprite *receiver, sprite *source){
 void sort_sprite(sprite *sprite_array, uint8_t sprite_count){
 	sprite buffer;
 	uint8_t ordered = false;
+
 	while(!ordered){
 		ordered = true;
+
 		for( uint8_t index = 0; index < sprite_count - 1; ++index){
+
 			if(sprite_array[index].x_pos > sprite_array[index + 1].x_pos ){	//	swap
 				copy_sprite(&buffer, &sprite_array[index]);
 				copy_sprite(&sprite_array[index], &sprite_array[index + 1]);
 				copy_sprite(&sprite_array[index] ,&buffer);
 				ordered = false;
 			}
+
 		}
 	}
 
 }
 
-uint8_t get_sprite_height(uint8_t tile_index){
+uint8_t get_sprite_height(const uint8_t tile_index){
 	uint8_t bit_2 = 0b00000100;
 	
 	if((tile_index & bit_2)  == 0)
@@ -67,11 +71,14 @@ uint8_t get_sprite_height(uint8_t tile_index){
 		return LARGE_SPRITE;
 }
 
-void search_OAM(uint8_t screen_Y, sprite (*current_line_sprites)[10], GameBoy *gb){
+void search_OAM(const uint8_t screen_Y, sprite (*current_line_sprites)[10], GameBoy *gb){
 	sprite sprite_array[40];
 	uint8_t sprite_count = 0;
 	sprite *buffer_sprite;
-	for(uint16_t index = 0xFE00; index < 0xFE9F; index += 4){
+  const uint16_t OAM_START_ADDRESS = 0xFE00;
+  const uint16_t END_OF_OAM = 0xFE9F;
+
+	for(uint16_t index = OAM_START_ADDRESS ; index < END_OF_OAM; index += 4){
 
 		buffer_sprite = fetch_sprite(index, gb);	
 		

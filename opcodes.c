@@ -213,23 +213,20 @@ void LD_address_HL_A(GameBoy *gb){
 }
 
 void LD_DE_n16(GameBoy *gb){
-	//uint8_t lower_byte = fetch(gb);
-	//uint8_t upper_byte = fetch(gb);
-	//uint16_t value = join_two_bytes(upper_byte, lower_byte);
+
 	uint16_t value = get_next_two_bytes(gb);
 	load_16b_register( &(gb->D), &(gb->E), value);
 
 }
 
 void LD_A_address_DE(GameBoy *gb){
+
 	uint16_t address = join_two_bytes(gb->D, gb->E);
 	gb->A = gb->memory_address[address];
+
 }
 
 void CALL_a16(GameBoy *gb){	
-	//uint8_t lower_byte = fetch(gb);
-	//uint8_t upper_byte = fetch(gb);
-	//uint16_t address = join_two_bytes(upper_byte, lower_byte);
 
 	uint16_t address = get_next_two_bytes(gb);
 	stack_push_n16(gb, gb->PC);
@@ -325,10 +322,7 @@ void LD_A_E(GameBoy *gb){
 
 
 void LD_a16_A(GameBoy *gb){
-	//uint8_t lower_byte = fetch(gb);
-	//uint8_t upper_byte = fetch(gb);
-	//uint16_t address = join_two_bytes(upper_byte, lower_byte);
-
+	
 	uint16_t address = get_next_two_bytes(gb);
 	gb->memory_address[address] = gb->A;
 
@@ -429,14 +423,3 @@ void LD_D_n8(GameBoy *gb){
 	gb->D = value;
 }
 
-/*	//get the address
-	uint16_t address;
-	address = fetch(gb);
-	address += (fetch(gb) << 8);
-
-	//get the value
-	uint16_t value;
-	value = gb->memory_address[address];	
-	value += (gb->memory_address[address + 1] << 8);	
-
-*/

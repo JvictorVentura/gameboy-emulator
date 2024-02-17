@@ -19,16 +19,12 @@ void prefix_not_impl(GameBoy *gb){
 	gb->stop_execution = true;
 }
 
-void jump(GameBoy *gb, uint16_t address){
+void jump(GameBoy *gb, const uint16_t address){
 	gb->PC = address;
 }
 
-uint16_t join_two_bytes(uint8_t byte_A, uint8_t byte_B){
+uint16_t join_two_bytes(const uint8_t byte_A, const uint8_t byte_B){
 	return (byte_A << 8) + byte_B;
-}
-
-void reg_to_reg_8b(uint8_t *reg_A, uint8_t *reg_B){
-	*reg_A = *reg_B;
 }
 
 void load_16b_register(uint8_t *high_reg, uint8_t *low_reg, uint16_t value){
@@ -76,14 +72,14 @@ uint8_t check_lower_half_carry(int8_t value_a, int8_t value_b){		// WRONG FIX LA
 
 }
 
-uint8_t check_flag(uint8_t *flag_register, uint8_t flag){
+uint8_t check_flag(uint8_t *flag_register, const uint8_t flag){
 	if ( (*flag_register & flag) == 0x0)
 		return OFF;
 	else
 		return ON;
 }
 
-void stack_push_n16(GameBoy *gb, uint16_t value){
+void stack_push_n16(GameBoy *gb, const uint16_t value){
 
 	gb->stack_pointer--;
 	gb->memory_address[gb->stack_pointer] = value >> 8;
