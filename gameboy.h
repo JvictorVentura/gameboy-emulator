@@ -1,3 +1,4 @@
+#pragma once
 #define SCREEN_WIDTH 160
 #define SCREEN_HEIGHT 144
 #define RAM_SIZE 8192
@@ -62,7 +63,6 @@ typedef struct{
 enum {ON, OFF};
 enum {ZERO_FLAG = 0x80, SUBTRACTION_FLAG = 0x40, HALF_CARRY_FLAG = 0x20, CARRY_FLAG = 0x10 };
 
-uint8_t fetch(GameBoy *gb);
 void print_opcode(uint8_t opcode); 
 void prefix_print_opcode(uint8_t opcode);
 void decode(GameBoy *gb, uint8_t opcode);
@@ -71,17 +71,11 @@ void prefixed_instruction(GameBoy *gb);
 void handle_interrupts(GameBoy *gb);
 void not_impl(GameBoy *gb);
 void prefix_not_impl(GameBoy *gb);
-void jump(GameBoy *gb, uint16_t address);
 uint16_t join_two_bytes(uint8_t byte_A, uint8_t byte_B);// join 2 bytes in one variable of 16bit and return, example: receives 0xc3 and 0x02 returns 0xc302
-void load_16b_register(uint8_t *high_reg, uint8_t *low_reg, uint16_t value);
-//void load_8b_register(uint8_t *reg, uint8_t value);
 void set_flag(uint8_t *flag_register, uint8_t flag, uint8_t set_flag_to);
 uint8_t check_upper_half_carry(uint8_t value_a, uint8_t value_b);
 uint8_t check_lower_half_carry(int8_t value_a, int8_t value_b);
 uint8_t check_flag(uint8_t *flag_register, uint8_t flag);
-void stack_push_n16(GameBoy *gb, uint16_t value);
-uint16_t stack_pop_n16(GameBoy *gb);
-uint16_t get_next_two_bytes(GameBoy *gb);
 
 //	Instructions
 void NOP(GameBoy *gb);			//0x00

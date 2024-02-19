@@ -1,11 +1,7 @@
 #include <stdint.h>
-#include "gameboy.h"
 #include <stdio.h>
+#include "mmu.h"
 #include "lookup_table.h"
-
-uint8_t fetch(GameBoy *gb){
-	return gb->memory_address[gb->PC++];
-}
 
 void not_impl(GameBoy *gb){
 	//printf("Instruction not implemented\n");
@@ -19,21 +15,8 @@ void prefix_not_impl(GameBoy *gb){
 	gb->stop_execution = true;
 }
 
-void jump(GameBoy *gb, const uint16_t address){
-	gb->PC = address;
-}
-
 uint16_t join_two_bytes(const uint8_t byte_A, const uint8_t byte_B){
 	return (byte_A << 8) + byte_B;
-}
-
-void load_16b_register(uint8_t *high_reg, uint8_t *low_reg, uint16_t value){
-	*high_reg = (value >> 8);
-	*low_reg = value & 0x00FF;
-}
-
-void load_8b_register(uint8_t *reg, uint8_t value){
-	*reg = value;
 }
 
 void set_flag(uint8_t *flag_register, uint8_t flag, uint8_t set_flag_to){
@@ -46,8 +29,6 @@ void set_flag(uint8_t *flag_register, uint8_t flag, uint8_t set_flag_to){
 	}
 
 }
-
-
 
 uint8_t check_upper_half_carry(uint8_t value_a, uint8_t value_b){
 	value_a = value_a & 0xF;	//  get 4 lower bits
@@ -77,34 +58,6 @@ uint8_t check_flag(uint8_t *flag_register, const uint8_t flag){
 		return OFF;
 	else
 		return ON;
-}
-
-void stack_push_n16(GameBoy *gb, const uint16_t value){
-
-	gb->stack_pointer--;
-	gb->memory_address[gb->stack_pointer] = value >> 8;
-		
-	gb->stack_pointer--;
-	gb->memory_address[gb->stack_pointer] = value & 0x00FF;
-}
-
-
-uint16_t stack_pop_n16(GameBoy *gb){
-	
-	uint8_t lower_byte = gb->memory_address[gb->stack_pointer];
-	gb->stack_pointer++;
-
-	uint8_t upper_byte = gb->memory_address[gb->stack_pointer];
-	gb->stack_pointer++;
-
-	return join_two_bytes(upper_byte, lower_byte);
-
-}
-
-uint16_t get_next_two_bytes(GameBoy *gb){
-	uint8_t byte_low = fetch(gb);
-	uint8_t byte_high = fetch(gb);
-	return join_two_bytes(byte_high, byte_low);
 }
 
 void print_opcode(uint8_t opcode){

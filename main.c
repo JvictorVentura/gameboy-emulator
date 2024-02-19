@@ -1,5 +1,6 @@
 #include <stdio.h>
-#include "gameboy.h"
+#include "mmu.h"
+//#include "gameboy.h"
 #include <stdlib.h>
 #include <string.h>
 #include "window.h"
