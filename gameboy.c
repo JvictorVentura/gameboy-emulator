@@ -78,15 +78,15 @@ void prefixed_instruction(GameBoy *gb){
 
 }
 
-void execute(GameBoy *gb){
+void execute_cpu(GameBoy *gb){
 
 	printf("Instruction : %s\nHex: 0x%.2x\n\n", instruction_name[gb->opcode], gb->opcode);
 	instruction[gb->opcode](gb);
 
 }
 
-void handle_interrupts(GameBoy *gb){
-	// TO DO
+void execute_ppu(){
+  
 }
 
 /*void decode(GameBoy *gb){

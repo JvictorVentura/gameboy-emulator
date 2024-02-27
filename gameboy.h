@@ -32,8 +32,12 @@ typedef struct{
 	uint8_t interrupt_master_enable;
 
 	uint32_t cycle;
-	uint32_t render_frequency;
+	//uint32_t render_frequency;
 	uint32_t frequency;
+
+  uint8_t ppu_mode;
+  //uint8_t cpu_status;
+
 } GameBoy;
 
 //	Interrupt Controller
@@ -66,9 +70,9 @@ enum {ZERO_FLAG = 0x80, SUBTRACTION_FLAG = 0x40, HALF_CARRY_FLAG = 0x20, CARRY_F
 void print_opcode(uint8_t opcode); 
 void prefix_print_opcode(uint8_t opcode);
 void decode(GameBoy *gb, uint8_t opcode);
-void execute(GameBoy *gb);
+void execute_cpu(GameBoy *gb);
+void execute_ppu();
 void prefixed_instruction(GameBoy *gb);
-void handle_interrupts(GameBoy *gb);
 void not_impl(GameBoy *gb);
 void prefix_not_impl(GameBoy *gb);
 uint16_t join_two_bytes(uint8_t byte_A, uint8_t byte_B);// join 2 bytes in one variable of 16bit and return, example: receives 0xc3 and 0x02 returns 0xc302

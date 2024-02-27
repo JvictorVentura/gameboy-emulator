@@ -103,19 +103,19 @@ int main(int argc, char *argv[]){
 			// start execution
 			while(gb.stop_execution == false){
 				get_event();
-  			//if (event.type == SDL_QUIT) {
-  				gb.stop_execution = is_event_quit();
-  			//}			
-				printf("PC = %.4x\n", gb.PC);
+  			gb.stop_execution = is_event_quit();
+			
+        printf("PC = %.4x\n", gb.PC);
 				printf("OPCODE = %.4x\n", gb.opcode);
-
 				//printf("C = %.2x\n", gb.C);
 				//printf("H = %.2x\n", gb.H);
+
 				if (gb.interrupt_master_enable == ON){
 					handle_interrupts(&gb);
 				}
 				gb.opcode = fetch(&gb);
-				execute(&gb);
+				execute_cpu(&gb);
+        //execute_ppu();
 				if ( gb.PC >= 0x100){	//	temporary
 				 	printf("end of boot rom\n");
 				 	gb.PC = 0x100;

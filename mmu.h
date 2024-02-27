@@ -7,4 +7,4 @@ void load_8b_register(uint8_t *reg, uint8_t value);
 void stack_push_n16(GameBoy *gb, uint16_t value);
 uint16_t stack_pop_n16(GameBoy *gb);
 uint16_t get_next_two_bytes(GameBoy *gb);
-
+void handle_interrupts(GameBoy *gb);

@@ -45,4 +45,6 @@ uint16_t get_next_two_bytes(GameBoy *gb){
 	return join_two_bytes(byte_high, byte_low);
 }
 
-
+void handle_interrupts(GameBoy *gb){
+	// TO DO
+}
