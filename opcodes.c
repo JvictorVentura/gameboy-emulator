@@ -1,8 +1,6 @@
 #include <stdint.h>
 #include "gameboy.h"
 #include "mmu.h"
-// RN. R = Register.  N = size in bits (16/8).
-// UN. U = value (unsinged integer).  N = size in bits (16/8).
 
 
 void STOP(GameBoy *gb){

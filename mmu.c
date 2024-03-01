@@ -1,4 +1,27 @@
 #include "gameboy.h"
+#include <stdbool.h>
+
+#define BANK_SIZE 16000
+
+#define	INTERRUPT_FLAG 			0xFF0F 
+#define	INTERRUPT_ENABLE 		0xFFFF 
+#define JOYPAD 							0xFF00
+
+uint8_t rom_bank00[BANK_SIZE];
+uint8_t rom_bank01[BANK_SIZE];
+
+bool load_boot_rom(FILE *file){
+  fseek(file, 0, SEEK_END);
+	uint16_t size = ftell(file);
+	rewind(file);
+  
+  if(size > BANK_SIZE)
+    return false;
+
+	fread(rom_bank00, sizeof(uint8_t), size, file);
+
+  return true;
+}
 
 uint8_t fetch(GameBoy *gb){
 	return gb->memory_address[gb->PC++];
