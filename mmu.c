@@ -1,10 +1,11 @@
 #include "gameboy.h"
 #include <stdbool.h>
+#include <stdint.h>
 
 #define BANK_SIZE 16000
 
 #define	INTERRUPT_FLAG 			0xFF0F 
-#define	INTERRUPT_ENABLE 		0xFFFF 
+//#define	INTERRUPT_ENABLE 		0xFFFF 
 #define JOYPAD 							0xFF00
 
 uint8_t rom_bank00[BANK_SIZE];
@@ -70,4 +71,66 @@ uint16_t get_next_two_bytes(GameBoy *gb){
 
 void handle_interrupts(GameBoy *gb){
 	// TO DO
+}
+
+bool write_to_address(const uint16_t address){
+  
+  if(address >= 0x8000 && address < 0xA000){
+    //  Write to Video RAM (VRAM)
+    return true;
+  }
+
+  if(address >= 0xA000 && address < 0xC000){
+    //  Write to External RAM 
+    return true;
+  }
+
+  if(address >= 0xC000 && address < 0xD000){
+    //  Write to Work RAM (WRAM)
+    return true;
+  }
+
+  if(address >= 0xE000 && address <= 0xFDFF){
+    // Mirror of C000~DDFF (ECHO RAM)
+    return true;
+  }
+
+  if(address >= 0xFE00 && address <= 0xFE9F){
+    //  Write to OAM
+    return true;
+  }
+
+  if(address >= 0xFF00 && address <= 0xFF7F){
+    //  Write to I/O Registers 
+    return true;
+  }
+
+  if(address >= 0xFF80 && address <= 0xFFFE){
+    //  Write to High RAM (HRAM)
+    return true;
+  }
+
+  if(address == 0xFFFF){
+    //  Interrupts Enable Register (IE)
+    return true;
+  }
+
+
+
+  if(address >= 0x0000 && address < 0x4000){
+    //  ROM bank 00
+    return false;
+  }
+
+  if(address >= 0x4000 && address < 0x8000){
+    //  ROM bank 00
+    return false;
+  }
+
+  if(address >= 0xFEA0 && address <= 0xFEFF){
+    // Not usable 
+    return false;
+  }
+
+  return false;
 }
