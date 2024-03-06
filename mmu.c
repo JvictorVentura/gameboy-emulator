@@ -4,12 +4,35 @@
 
 #define BANK_SIZE 16000
 
-#define	INTERRUPT_FLAG 			0xFF0F 
+//#define	INTERRUPT_FLAG 			0xFF0F 
 //#define	INTERRUPT_ENABLE 		0xFFFF 
-#define JOYPAD 							0xFF00
+//#define JOYPAD 							0xFF00
 
 uint8_t rom_bank00[BANK_SIZE];
 uint8_t rom_bank01[BANK_SIZE];
+
+uint8_t HRAM[127];
+uint8_t WRAM[8192];
+
+void write_to_HRAM(uint16_t address,const uint8_t value){
+  address -= 0xFF80;
+  if(address >= 127){
+    printf("out of range of the hram\n");
+    return;
+  }
+
+  HRAM[address] = value;
+}
+
+void write_to_WRAM(uint16_t address,const uint8_t value){
+  address -= 0xC000;
+  if(address >= 8192){
+    printf("out of range of the wram\n");
+    return;
+  }
+
+  WRAM[address] = value;
+}
 
 bool load_boot_rom(FILE *file){
   fseek(file, 0, SEEK_END);
@@ -85,7 +108,7 @@ bool write_to_address(const uint16_t address){
     return true;
   }
 
-  if(address >= 0xC000 && address < 0xD000){
+  if(address >= 0xC000 && address < 0xE000){
     //  Write to Work RAM (WRAM)
     return true;
   }
@@ -117,7 +140,7 @@ bool write_to_address(const uint16_t address){
 
 
 
-  if(address >= 0x0000 && address < 0x4000){
+  if(address < 0x4000){
     //  ROM bank 00
     return false;
   }
