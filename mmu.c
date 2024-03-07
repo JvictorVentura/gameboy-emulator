@@ -1,13 +1,11 @@
 #include "gameboy.h"
 #include <stdbool.h>
 #include <stdint.h>
+#include "io_registers.h"
 
 #define BANK_SIZE 16000
 
-//#define	INTERRUPT_FLAG 			0xFF0F 
-//#define	INTERRUPT_ENABLE 		0xFFFF 
-//#define JOYPAD 							0xFF00
-
+uint8_t boot_rom[BANK_SIZE];
 uint8_t rom_bank00[BANK_SIZE];
 uint8_t rom_bank01[BANK_SIZE];
 
@@ -42,7 +40,7 @@ bool load_boot_rom(FILE *file){
   if(size > BANK_SIZE)
     return false;
 
-	fread(rom_bank00, sizeof(uint8_t), size, file);
+	fread(boot_rom, sizeof(uint8_t), size, file);
 
   return true;
 }
@@ -156,4 +154,12 @@ bool write_to_address(const uint16_t address){
   }
 
   return false;
+}
+
+void io_registers(uint16_t address, const uint8_t value){
+  switch (address) {
+    case LCDC_STATUS:
+
+    break;
+  }
 }
